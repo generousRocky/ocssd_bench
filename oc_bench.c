@@ -17,9 +17,12 @@
 
 #define NR_BLKS_IN_VBLK 128
 #define NR_VBLKS 1020 * (NR_PUNITS / NR_BLKS_IN_VBLK)
+size_t NBYTES_VBLK = (size_t)NR_BLKS_IN_VBLK*1024*1024*16;
+
 
 //#define NBYTES_TO_WRITE  10737418240 // 10GB
 #define NBYTES_TO_WRITE  21474836480 // 20GB
+#define NBYTES_TO_READ  21474836480 // 20GB
 
 enum{
 	FREE,
@@ -38,7 +41,6 @@ struct nvm_vblk* vblks_[NR_VBLKS];
 int vblks_state[NR_VBLKS];
 size_t curs=0;
 
-size_t NBYTES_VBLK;
 size_t NBYTES_IO = (size_t)(NBYTES_TO_WRITE/NR_W_THREADS); // per a thread
 
 //function level profiling
@@ -133,6 +135,8 @@ void nvm_init(){
   // Initialize and allocate vblks with defaults (Freene)
   
 	size_t vblk_idx = 0;
+	size_t nr_iterate_to_read = 0; // up to NBYTES_TO_READ / NBYTES_VBLK;
+	printf("nr_iterate_to_read: %zu\n", nr_iterate_to_read);
 
 	for(size_t blk_idx =0; blk_idx< NR_BLOCKS; blk_idx++){
 		printf("blk_idx: %zu\n", blk_idx);
@@ -151,12 +155,26 @@ void nvm_init(){
 				exit(-1);
 			}
 
-			vblks_[vblk_idx] = blk; vblk_idx++;
-			vblks_state[vblk_idx] = FREE;
+			if(vblk_idx < NR_VBLKS){ // vblks for write;
+				vblks_[vblk_idx] = blk; vblk_idx++;
+				vblks_state[vblk_idx] = FREE;
+			}
+			else{
+				if(nr_iterate_to_read < NBYTES_TO_READ/NBYTES_VBLK){
+					if (nvm_vblk_erase(blk) < 0) {
+						vblks_state[curs] = BAD;
+					}
+					else{
+						// 쓰기
+						// 버퍼 할당, 생각
 
-			// 한번만 
-			if(vblk_idx == 1)
-				NBYTES_VBLK = nvm_vblk_get_nbytes(blk);
+						vblks_state[curs] = RESERVED;
+						nr_iterate_to_read++;	
+					}
+				}
+				
+				vblks_[vblk_idx] = blk; vblk_idx++;
+			}
 		}
 	}
 
@@ -223,6 +241,9 @@ void *t_reader(void *data)
 		goto out;
 	}
 	*/
+
+	// init에서 써 준 만큼 vblk쓰기
+	// thread 여러 개 일때 생각 해 보자. 
 }
 
 void *io_manager(void *data){
