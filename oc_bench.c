@@ -8,15 +8,18 @@
 #include <errno.h>
 
 #define NVM_DEV_PATH "/dev/nvme0n1"
+
 #define NR_PUNITS 128
 #define NR_BLOCKS 1020
-#define NR_VBLKS 8160
 
-#define NR_W_THREADS 64
-#define NR_R_THREADS 64
+#define NR_W_THREADS 1
+#define NR_R_THREADS 1
 
-// 여기가 문제인 것 같운데
-size_t NBYTES_IO_PER_T = 2147483648;
+#define NR_BLKS_IN_VBLK 128
+#define NR_VBLKS 1020 * (NR_PUNITS / NR_BLKS_IN_VBLK)
+
+//#define NBYTES_TO_WRITE  10737418240 // 10GB
+#define NBYTES_TO_WRITE  21474836480 // 20GB
 
 enum{
 	FREE,
@@ -27,14 +30,16 @@ enum{
 static char nvm_dev_path[] = NVM_DEV_PATH;
 static struct nvm_dev *dev;
 static const struct nvm_geo *geo;
+//
+struct nvm_buf_set *bufs = NULL;
 
-struct nvm_addr punits_[128];
+struct nvm_addr punits_[NR_PUNITS];
 struct nvm_vblk* vblks_[NR_VBLKS];
 int vblks_state[NR_VBLKS];
 size_t curs=0;
 
 size_t NBYTES_VBLK;
-size_t NBYTES_IO = 2147483648; // per a thread
+size_t NBYTES_IO = (size_t)(NBYTES_TO_WRITE/NR_W_THREADS); // per a thread
 
 //function level profiling
 #define BILLION     (1000000001ULL)
@@ -58,25 +63,36 @@ size_t NBYTES_IO = 2147483648; // per a thread
 //Global function time/count variables
 unsigned long long total_time, total_count;
 
+pthread_mutex_t  mutex = PTHREAD_MUTEX_INITIALIZER; // 쓰레드 초기화 
+
+
+
 void free_all(){
+	for(size_t i=0; i<NR_VBLKS; i++){
+		nvm_vblk_free(vblks_[i]);
+	}
   return;
 }
 
 struct nvm_vblk* get_vblk(void){
 
+	pthread_mutex_lock(&mutex);
+
   for (size_t i = 0; i < NR_VBLKS; i++) {
     
-    __sync_fetch_and_add(&curs, 1);
-	  curs % NR_VBLKS;
+		curs++;
+	  curs = curs % NR_VBLKS;
 
     switch (vblks_state[curs]) {
     case FREE:
-      //if (nvm_vblk_erase(vblks_[curs]) < 0) {
-      //  vblks_state[curs] = BAD;
-      //  break;
-      //}
+      if (nvm_vblk_erase(vblks_[curs]) < 0) {
+        vblks_state[curs] = BAD;
+        break;
+      }
 
       vblks_state[curs] = RESERVED;
+			printf("returning vblk_idx: %zu\n", curs);
+			pthread_mutex_unlock(&mutex);
 			return vblks_[curs];
 
     case RESERVED:
@@ -85,6 +101,8 @@ struct nvm_vblk* get_vblk(void){
     }
   }
 
+	printf("No available vblk\n");
+	pthread_mutex_unlock(&mutex);
   return NULL;
 }
 
@@ -112,54 +130,66 @@ void nvm_init(){
 		punits_[i] = addr;
 	}
 
-  // Initialize and allocate vblks with defaults (Free)
-  for (size_t vblk_idx = 0; vblk_idx < NR_VBLKS; ++vblk_idx) {
-
-		struct nvm_vblk *blk;
-		
-		struct nvm_addr addrs[128];
-		for(int i =0; i< 128; i++){
-			addrs[i] = punits_[i];
-			addrs[i].g.blk = vblk_idx;
-		}
-
-    blk = nvm_vblk_alloc(dev, addrs, 128);
-    if (!blk) {
-      perror("FAILED: nvm_vblk_alloc_line");
-    	exit(-1);
-		}
-  	
-		vblks_[vblk_idx] = blk;
-    if(nvm_vblk_erase(blk) < 0){
-			vblks_state[vblk_idx] = BAD;
-		}
-		else{
-			vblks_state[vblk_idx] = FREE;
-		}
-
-    // 한번만 
-    if(vblk_idx == 0)
-	    NBYTES_VBLK = nvm_vblk_get_nbytes(blk);
-    //printf("vblk: %zu, nbytes: %zu\n", blk_idx, nbytes);
+  // Initialize and allocate vblks with defaults (Freene)
   
-	
+	size_t vblk_idx = 0;
+
+	for(size_t blk_idx =0; blk_idx< NR_BLOCKS; blk_idx++){
+		printf("blk_idx: %zu\n", blk_idx);
+		for(size_t i=0; i<128/NR_BLKS_IN_VBLK; i++){
+			struct nvm_vblk *blk;
+			struct nvm_addr addrs[NR_BLKS_IN_VBLK];
+			for(size_t j=0; j<NR_BLKS_IN_VBLK; j++){
+				addrs[j] = punits_[NR_BLKS_IN_VBLK*i+j];
+				addrs[j].g.blk = blk_idx;
+			}
+
+			printf("vblk_idx: %zu\n", vblk_idx);
+			blk = nvm_vblk_alloc(dev, addrs, NR_BLKS_IN_VBLK);
+			if (!blk) {
+				perror("FAILED: nvm_vblk_alloc_line");
+				exit(-1);
+			}
+
+			vblks_[vblk_idx] = blk; vblk_idx++;
+			vblks_state[vblk_idx] = FREE;
+
+			// 한번만 
+			if(vblk_idx == 1)
+				NBYTES_VBLK = nvm_vblk_get_nbytes(blk);
+		}
 	}
+
+	//////
+	
+	printf("Allocating nvm_buf_set\n");
+	bufs = nvm_buf_set_alloc(dev, NBYTES_VBLK, 0);
+	if (!bufs) {
+		printf("FAILED: Allocating nvm_buf_set\n");
+		exit(-1);
+	}
+
+	printf("nvm_buf_set_fill\n");
+	nvm_buf_set_fill(bufs);
+
 }
 
 void *t_writer(void *data)
 {
 	size_t* size = (size_t*)data;
-  int nbytes_vblk;
-
-  int nr_iterate = (*size/NBYTES_VBLK);
+	printf("size: %zu\n", *size);
+  
+	printf("NBYTES_VBLK: %zu\n", NBYTES_VBLK);
+	int nr_iterate = ((*size)/NBYTES_VBLK);
+	
 	if(*size%NBYTES_VBLK > 0){
 		nr_iterate++;
 	}
 
 	printf("nr_iterate: %d\n", nr_iterate);
   struct nvm_vblk* vblk; 
-  for(int i=0; i< nr_iterate; i++){
-    struct nvm_buf_set *bufs = NULL;
+  
+	for(int i=0; i< nr_iterate; i++){
     
     printf("Allocating vblk\n");
     vblk = get_vblk();
@@ -167,29 +197,19 @@ void *t_writer(void *data)
       printf("FAILED: Allocating vblk\n");
       goto out;
     }
-
-    printf("Allocating nvm_buf_set\n");
-    bufs = nvm_buf_set_alloc(dev, NBYTES_VBLK, 0);
-    if (!bufs) {
-      printf("FAILED: Allocating nvm_buf_set\n");
-      goto out;
-    }
-    
-  	printf("nvm_buf_set_fill\n");
-    nvm_buf_set_fill(bufs);
-  	printf("nvm_vblk_write\n");
+		
+		printf("nvm_vblk_write\n");
     if (nvm_vblk_write(vblk, bufs->write, NBYTES_VBLK) < 0) {
       printf("FAILED: nvm_vblk_write\n");
       goto out;
     }
-
-    nvm_buf_set_free(bufs);
-  }
-
+	}
+	
   printf("nvm_vblk_write: done\n");
   return 0;
 
 out:
+  nvm_buf_set_free(bufs);
   free_all();
   exit(-1);
 }
@@ -197,6 +217,12 @@ out:
 void *t_reader(void *data)
 {
 	int* size = (int*)data;
+	/*
+	if (nvm_vblk_read(vblk, bufs->read, NBYTES_VBLK) < 0) {
+		printf("FAILED: nvm_vblk_read\n");
+		goto out;
+	}
+	*/
 }
 
 void *io_manager(void *data){
@@ -215,7 +241,7 @@ void *io_manager(void *data){
 	int thr_id;
 	int status;
 	int rw = *((int*)data);
-	
+
 	if(rw = 1){ // writer
 		for(int i=0; i<NR_W_THREADS; i++){
 			args_w_size[i] = NBYTES_IO;
@@ -253,8 +279,6 @@ void *io_manager(void *data){
   calclock(local_time, &total_time, &total_count, &delay_time );
 
   printf("[WRITE], elapsed time: %llu,  total_time: %llu, total_count: %llu\n", delay_time, total_time, total_count);
-
-
 }
 
 
@@ -275,8 +299,8 @@ int main()
 		perror("thread create error : ");
 		exit(0);
 	}
-
 #if 0
+
 	thr_id = pthread_create(&m_thread[1], NULL, io_manager, &flag_reader);
 	if (thr_id < 0){
 		perror("thread create error : ");
@@ -287,8 +311,12 @@ int main()
 #endif 
   pthread_join(m_thread[0], (void **)&status);
 
+	// free
+	free_all();
+  nvm_buf_set_free(bufs);
+	
 	/* close device */
 	nvm_dev_close(dev);
-
+	
 	return 0;
 }
