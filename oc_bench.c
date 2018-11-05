@@ -16,7 +16,7 @@
 #define NR_BLKS_IN_VBLK 128
 #define NR_VBLKS 1020 * (NR_PUNITS / NR_BLKS_IN_VBLK)
 
-#define NR_W_THREADS 1
+#define NR_W_THREADS 2
 #define NR_R_THREADS 1
 
 //#define NBYTES_TO_WRITE  10737418240 // 10GB
@@ -61,6 +61,7 @@ struct nvm_vblk* get_vblk_for_read(void){
   for (size_t i = 0; i < NR_VBLKS/2; i++) {
    	size_t adjusted_curs_r;
 
+		curs_r++;	
 		
 		printf("curs_r: %zu\n", curs_r);
 		printf("switch: %zu\n", NBYTES_TO_READ/NBYTES_VBLK);
@@ -76,7 +77,6 @@ struct nvm_vblk* get_vblk_for_read(void){
 
 		case RESERVED:
 			printf("returning vblk_idx for READ: %zu\n", adjusted_curs_r);
-			curs_r++;	
 			pthread_mutex_unlock(&mutex_r);
 			return vblks_[adjusted_curs_r];
 		
@@ -85,8 +85,6 @@ struct nvm_vblk* get_vblk_for_read(void){
 			printf("FREE or BAD - vblk: %zu\n", adjusted_curs_r);
 			break;
     }
-  
-		curs_r++;	
 	}
 
 	printf("No available vblk for READ\n");
@@ -102,6 +100,7 @@ struct nvm_vblk* get_vblk_for_write(void){
 
   for (size_t i = 0; i < NR_VBLKS/2; i++) {
     
+		curs_w++;
 	  curs_w = curs_w % (NR_VBLKS/2);
 
     switch (vblks_state[curs_w]) {
@@ -115,7 +114,6 @@ struct nvm_vblk* get_vblk_for_write(void){
 
       vblks_state[curs_w] = RESERVED;
 			printf("returning vblk_idx for WRITE: %zu\n", curs_w);
-			curs_w++;
 			pthread_mutex_unlock(&mutex_w);
 			return vblks_[curs_w];
 
@@ -123,8 +121,6 @@ struct nvm_vblk* get_vblk_for_write(void){
     case BAD:
       break;
     }
-		
-		curs_w++;
 	}
 
 	printf("No available vblk\n");
