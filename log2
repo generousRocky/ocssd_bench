@@ -1,0 +1,2061 @@
+Allocating nvm_buf_set
+nvm_buf_set_fill
+up to nr_iterate_to_read: 200
+blk_idx: 0
+vblk_r_idx: 0 is wriiten and reserved for READ
+blk_idx: 1
+vblk_r_idx: 1 is wriiten and reserved for READ
+blk_idx: 2
+vblk_r_idx: 2 is wriiten and reserved for READ
+blk_idx: 3
+vblk_r_idx: 3 is wriiten and reserved for READ
+blk_idx: 4
+vblk_r_idx: 4 is wriiten and reserved for READ
+blk_idx: 5
+vblk_r_idx: 5 is wriiten and reserved for READ
+blk_idx: 6
+vblk_r_idx: 6 is wriiten and reserved for READ
+blk_idx: 7
+vblk_r_idx: 7 is wriiten and reserved for READ
+blk_idx: 8
+vblk_r_idx: 8 is wriiten and reserved for READ
+blk_idx: 9
+vblk_r_idx: 9 is wriiten and reserved for READ
+blk_idx: 10
+vblk_r_idx: 10 is wriiten and reserved for READ
+blk_idx: 11
+vblk_r_idx: 11 is wriiten and reserved for READ
+blk_idx: 12
+vblk_r_idx: 12 is wriiten and reserved for READ
+blk_idx: 13
+vblk_r_idx: 13 is wriiten and reserved for READ
+blk_idx: 14
+vblk_r_idx: 14 is wriiten and reserved for READ
+blk_idx: 15
+vblk_r_idx: 15 is wriiten and reserved for READ
+blk_idx: 16
+vblk_r_idx: 16 is wriiten and reserved for READ
+blk_idx: 17
+blk_idx: 18
+vblk_r_idx: 18 is wriiten and reserved for READ
+blk_idx: 19
+vblk_r_idx: 19 is wriiten and reserved for READ
+blk_idx: 20
+vblk_r_idx: 20 is wriiten and reserved for READ
+blk_idx: 21
+vblk_r_idx: 21 is wriiten and reserved for READ
+blk_idx: 22
+vblk_r_idx: 22 is wriiten and reserved for READ
+blk_idx: 23
+vblk_r_idx: 23 is wriiten and reserved for READ
+blk_idx: 24
+vblk_r_idx: 24 is wriiten and reserved for READ
+blk_idx: 25
+vblk_r_idx: 25 is wriiten and reserved for READ
+blk_idx: 26
+vblk_r_idx: 26 is wriiten and reserved for READ
+blk_idx: 27
+vblk_r_idx: 27 is wriiten and reserved for READ
+blk_idx: 28
+vblk_r_idx: 28 is wriiten and reserved for READ
+blk_idx: 29
+vblk_r_idx: 29 is wriiten and reserved for READ
+blk_idx: 30
+vblk_r_idx: 30 is wriiten and reserved for READ
+blk_idx: 31
+vblk_r_idx: 31 is wriiten and reserved for READ
+blk_idx: 32
+vblk_r_idx: 32 is wriiten and reserved for READ
+blk_idx: 33
+vblk_r_idx: 33 is wriiten and reserved for READ
+blk_idx: 34
+vblk_r_idx: 34 is wriiten and reserved for READ
+blk_idx: 35
+vblk_r_idx: 35 is wriiten and reserved for READ
+blk_idx: 36
+vblk_r_idx: 36 is wriiten and reserved for READ
+blk_idx: 37
+vblk_r_idx: 37 is wriiten and reserved for READ
+blk_idx: 38
+vblk_r_idx: 38 is wriiten and reserved for READ
+blk_idx: 39
+vblk_r_idx: 39 is wriiten and reserved for READ
+blk_idx: 40
+vblk_r_idx: 40 is wriiten and reserved for READ
+blk_idx: 41
+blk_idx: 42
+vblk_r_idx: 42 is wriiten and reserved for READ
+blk_idx: 43
+vblk_r_idx: 43 is wriiten and reserved for READ
+blk_idx: 44
+vblk_r_idx: 44 is wriiten and reserved for READ
+blk_idx: 45
+vblk_r_idx: 45 is wriiten and reserved for READ
+blk_idx: 46
+vblk_r_idx: 46 is wriiten and reserved for READ
+blk_idx: 47
+vblk_r_idx: 47 is wriiten and reserved for READ
+blk_idx: 48
+vblk_r_idx: 48 is wriiten and reserved for READ
+blk_idx: 49
+vblk_r_idx: 49 is wriiten and reserved for READ
+blk_idx: 50
+vblk_r_idx: 50 is wriiten and reserved for READ
+blk_idx: 51
+vblk_r_idx: 51 is wriiten and reserved for READ
+blk_idx: 52
+blk_idx: 53
+vblk_r_idx: 53 is wriiten and reserved for READ
+blk_idx: 54
+vblk_r_idx: 54 is wriiten and reserved for READ
+blk_idx: 55
+vblk_r_idx: 55 is wriiten and reserved for READ
+blk_idx: 56
+vblk_r_idx: 56 is wriiten and reserved for READ
+blk_idx: 57
+vblk_r_idx: 57 is wriiten and reserved for READ
+blk_idx: 58
+vblk_r_idx: 58 is wriiten and reserved for READ
+blk_idx: 59
+vblk_r_idx: 59 is wriiten and reserved for READ
+blk_idx: 60
+vblk_r_idx: 60 is wriiten and reserved for READ
+blk_idx: 61
+vblk_r_idx: 61 is wriiten and reserved for READ
+blk_idx: 62
+vblk_r_idx: 62 is wriiten and reserved for READ
+blk_idx: 63
+blk_idx: 64
+vblk_r_idx: 64 is wriiten and reserved for READ
+blk_idx: 65
+vblk_r_idx: 65 is wriiten and reserved for READ
+blk_idx: 66
+vblk_r_idx: 66 is wriiten and reserved for READ
+blk_idx: 67
+vblk_r_idx: 67 is wriiten and reserved for READ
+blk_idx: 68
+vblk_r_idx: 68 is wriiten and reserved for READ
+blk_idx: 69
+vblk_r_idx: 69 is wriiten and reserved for READ
+blk_idx: 70
+vblk_r_idx: 70 is wriiten and reserved for READ
+blk_idx: 71
+vblk_r_idx: 71 is wriiten and reserved for READ
+blk_idx: 72
+vblk_r_idx: 72 is wriiten and reserved for READ
+blk_idx: 73
+vblk_r_idx: 73 is wriiten and reserved for READ
+blk_idx: 74
+vblk_r_idx: 74 is wriiten and reserved for READ
+blk_idx: 75
+vblk_r_idx: 75 is wriiten and reserved for READ
+blk_idx: 76
+vblk_r_idx: 76 is wriiten and reserved for READ
+blk_idx: 77
+vblk_r_idx: 77 is wriiten and reserved for READ
+blk_idx: 78
+vblk_r_idx: 78 is wriiten and reserved for READ
+blk_idx: 79
+vblk_r_idx: 79 is wriiten and reserved for READ
+blk_idx: 80
+vblk_r_idx: 80 is wriiten and reserved for READ
+blk_idx: 81
+vblk_r_idx: 81 is wriiten and reserved for READ
+blk_idx: 82
+vblk_r_idx: 82 is wriiten and reserved for READ
+blk_idx: 83
+vblk_r_idx: 83 is wriiten and reserved for READ
+blk_idx: 84
+vblk_r_idx: 84 is wriiten and reserved for READ
+blk_idx: 85
+vblk_r_idx: 85 is wriiten and reserved for READ
+blk_idx: 86
+vblk_r_idx: 86 is wriiten and reserved for READ
+blk_idx: 87
+vblk_r_idx: 87 is wriiten and reserved for READ
+blk_idx: 88
+blk_idx: 89
+vblk_r_idx: 89 is wriiten and reserved for READ
+blk_idx: 90
+vblk_r_idx: 90 is wriiten and reserved for READ
+blk_idx: 91
+vblk_r_idx: 91 is wriiten and reserved for READ
+blk_idx: 92
+vblk_r_idx: 92 is wriiten and reserved for READ
+blk_idx: 93
+vblk_r_idx: 93 is wriiten and reserved for READ
+blk_idx: 94
+vblk_r_idx: 94 is wriiten and reserved for READ
+blk_idx: 95
+vblk_r_idx: 95 is wriiten and reserved for READ
+blk_idx: 96
+blk_idx: 97
+vblk_r_idx: 97 is wriiten and reserved for READ
+blk_idx: 98
+vblk_r_idx: 98 is wriiten and reserved for READ
+blk_idx: 99
+vblk_r_idx: 99 is wriiten and reserved for READ
+blk_idx: 100
+vblk_r_idx: 100 is wriiten and reserved for READ
+blk_idx: 101
+vblk_r_idx: 101 is wriiten and reserved for READ
+blk_idx: 102
+vblk_r_idx: 102 is wriiten and reserved for READ
+blk_idx: 103
+vblk_r_idx: 103 is wriiten and reserved for READ
+blk_idx: 104
+vblk_r_idx: 104 is wriiten and reserved for READ
+blk_idx: 105
+vblk_r_idx: 105 is wriiten and reserved for READ
+blk_idx: 106
+vblk_r_idx: 106 is wriiten and reserved for READ
+blk_idx: 107
+vblk_r_idx: 107 is wriiten and reserved for READ
+blk_idx: 108
+vblk_r_idx: 108 is wriiten and reserved for READ
+blk_idx: 109
+vblk_r_idx: 109 is wriiten and reserved for READ
+blk_idx: 110
+vblk_r_idx: 110 is wriiten and reserved for READ
+blk_idx: 111
+vblk_r_idx: 111 is wriiten and reserved for READ
+blk_idx: 112
+vblk_r_idx: 112 is wriiten and reserved for READ
+blk_idx: 113
+vblk_r_idx: 113 is wriiten and reserved for READ
+blk_idx: 114
+vblk_r_idx: 114 is wriiten and reserved for READ
+blk_idx: 115
+vblk_r_idx: 115 is wriiten and reserved for READ
+blk_idx: 116
+vblk_r_idx: 116 is wriiten and reserved for READ
+blk_idx: 117
+vblk_r_idx: 117 is wriiten and reserved for READ
+blk_idx: 118
+vblk_r_idx: 118 is wriiten and reserved for READ
+blk_idx: 119
+vblk_r_idx: 119 is wriiten and reserved for READ
+blk_idx: 120
+vblk_r_idx: 120 is wriiten and reserved for READ
+blk_idx: 121
+vblk_r_idx: 121 is wriiten and reserved for READ
+blk_idx: 122
+vblk_r_idx: 122 is wriiten and reserved for READ
+blk_idx: 123
+vblk_r_idx: 123 is wriiten and reserved for READ
+blk_idx: 124
+vblk_r_idx: 124 is wriiten and reserved for READ
+blk_idx: 125
+vblk_r_idx: 125 is wriiten and reserved for READ
+blk_idx: 126
+vblk_r_idx: 126 is wriiten and reserved for READ
+blk_idx: 127
+vblk_r_idx: 127 is wriiten and reserved for READ
+blk_idx: 128
+vblk_r_idx: 128 is wriiten and reserved for READ
+blk_idx: 129
+blk_idx: 130
+vblk_r_idx: 130 is wriiten and reserved for READ
+blk_idx: 131
+vblk_r_idx: 131 is wriiten and reserved for READ
+blk_idx: 132
+vblk_r_idx: 132 is wriiten and reserved for READ
+blk_idx: 133
+vblk_r_idx: 133 is wriiten and reserved for READ
+blk_idx: 134
+vblk_r_idx: 134 is wriiten and reserved for READ
+blk_idx: 135
+vblk_r_idx: 135 is wriiten and reserved for READ
+blk_idx: 136
+vblk_r_idx: 136 is wriiten and reserved for READ
+blk_idx: 137
+vblk_r_idx: 137 is wriiten and reserved for READ
+blk_idx: 138
+vblk_r_idx: 138 is wriiten and reserved for READ
+blk_idx: 139
+vblk_r_idx: 139 is wriiten and reserved for READ
+blk_idx: 140
+vblk_r_idx: 140 is wriiten and reserved for READ
+blk_idx: 141
+vblk_r_idx: 141 is wriiten and reserved for READ
+blk_idx: 142
+vblk_r_idx: 142 is wriiten and reserved for READ
+blk_idx: 143
+vblk_r_idx: 143 is wriiten and reserved for READ
+blk_idx: 144
+vblk_r_idx: 144 is wriiten and reserved for READ
+blk_idx: 145
+vblk_r_idx: 145 is wriiten and reserved for READ
+blk_idx: 146
+vblk_r_idx: 146 is wriiten and reserved for READ
+blk_idx: 147
+vblk_r_idx: 147 is wriiten and reserved for READ
+blk_idx: 148
+vblk_r_idx: 148 is wriiten and reserved for READ
+blk_idx: 149
+vblk_r_idx: 149 is wriiten and reserved for READ
+blk_idx: 150
+vblk_r_idx: 150 is wriiten and reserved for READ
+blk_idx: 151
+vblk_r_idx: 151 is wriiten and reserved for READ
+blk_idx: 152
+vblk_r_idx: 152 is wriiten and reserved for READ
+blk_idx: 153
+vblk_r_idx: 153 is wriiten and reserved for READ
+blk_idx: 154
+vblk_r_idx: 154 is wriiten and reserved for READ
+blk_idx: 155
+vblk_r_idx: 155 is wriiten and reserved for READ
+blk_idx: 156
+vblk_r_idx: 156 is wriiten and reserved for READ
+blk_idx: 157
+vblk_r_idx: 157 is wriiten and reserved for READ
+blk_idx: 158
+vblk_r_idx: 158 is wriiten and reserved for READ
+blk_idx: 159
+vblk_r_idx: 159 is wriiten and reserved for READ
+blk_idx: 160
+vblk_r_idx: 160 is wriiten and reserved for READ
+blk_idx: 161
+vblk_r_idx: 161 is wriiten and reserved for READ
+blk_idx: 162
+vblk_r_idx: 162 is wriiten and reserved for READ
+blk_idx: 163
+vblk_r_idx: 163 is wriiten and reserved for READ
+blk_idx: 164
+vblk_r_idx: 164 is wriiten and reserved for READ
+blk_idx: 165
+vblk_r_idx: 165 is wriiten and reserved for READ
+blk_idx: 166
+vblk_r_idx: 166 is wriiten and reserved for READ
+blk_idx: 167
+vblk_r_idx: 167 is wriiten and reserved for READ
+blk_idx: 168
+vblk_r_idx: 168 is wriiten and reserved for READ
+blk_idx: 169
+vblk_r_idx: 169 is wriiten and reserved for READ
+blk_idx: 170
+blk_idx: 171
+vblk_r_idx: 171 is wriiten and reserved for READ
+blk_idx: 172
+vblk_r_idx: 172 is wriiten and reserved for READ
+blk_idx: 173
+vblk_r_idx: 173 is wriiten and reserved for READ
+blk_idx: 174
+vblk_r_idx: 174 is wriiten and reserved for READ
+blk_idx: 175
+vblk_r_idx: 175 is wriiten and reserved for READ
+blk_idx: 176
+vblk_r_idx: 176 is wriiten and reserved for READ
+blk_idx: 177
+vblk_r_idx: 177 is wriiten and reserved for READ
+blk_idx: 178
+vblk_r_idx: 178 is wriiten and reserved for READ
+blk_idx: 179
+vblk_r_idx: 179 is wriiten and reserved for READ
+blk_idx: 180
+vblk_r_idx: 180 is wriiten and reserved for READ
+blk_idx: 181
+vblk_r_idx: 181 is wriiten and reserved for READ
+blk_idx: 182
+vblk_r_idx: 182 is wriiten and reserved for READ
+blk_idx: 183
+vblk_r_idx: 183 is wriiten and reserved for READ
+blk_idx: 184
+vblk_r_idx: 184 is wriiten and reserved for READ
+blk_idx: 185
+vblk_r_idx: 185 is wriiten and reserved for READ
+blk_idx: 186
+vblk_r_idx: 186 is wriiten and reserved for READ
+blk_idx: 187
+vblk_r_idx: 187 is wriiten and reserved for READ
+blk_idx: 188
+vblk_r_idx: 188 is wriiten and reserved for READ
+blk_idx: 189
+vblk_r_idx: 189 is wriiten and reserved for READ
+blk_idx: 190
+vblk_r_idx: 190 is wriiten and reserved for READ
+blk_idx: 191
+vblk_r_idx: 191 is wriiten and reserved for READ
+blk_idx: 192
+vblk_r_idx: 192 is wriiten and reserved for READ
+blk_idx: 193
+vblk_r_idx: 193 is wriiten and reserved for READ
+blk_idx: 194
+vblk_r_idx: 194 is wriiten and reserved for READ
+blk_idx: 195
+vblk_r_idx: 195 is wriiten and reserved for READ
+blk_idx: 196
+vblk_r_idx: 196 is wriiten and reserved for READ
+blk_idx: 197
+vblk_r_idx: 197 is wriiten and reserved for READ
+blk_idx: 198
+vblk_r_idx: 198 is wriiten and reserved for READ
+blk_idx: 199
+vblk_r_idx: 199 is wriiten and reserved for READ
+blk_idx: 200
+vblk_r_idx: 200 is wriiten and reserved for READ
+blk_idx: 201
+vblk_r_idx: 201 is wriiten and reserved for READ
+blk_idx: 202
+vblk_r_idx: 202 is wriiten and reserved for READ
+blk_idx: 203
+vblk_r_idx: 203 is wriiten and reserved for READ
+blk_idx: 204
+vblk_r_idx: 204 is wriiten and reserved for READ
+blk_idx: 205
+vblk_r_idx: 205 is wriiten and reserved for READ
+blk_idx: 206
+vblk_r_idx: 206 is wriiten and reserved for READ
+blk_idx: 207
+vblk_r_idx: 207 is wriiten and reserved for READ
+blk_idx: 208
+vblk_r_idx: 208 is wriiten and reserved for READ
+blk_idx: 209
+vblk_r_idx: 209 is wriiten and reserved for READ
+blk_idx: 210
+vblk_r_idx: 210 is wriiten and reserved for READ
+blk_idx: 211
+vblk_r_idx: 211 is wriiten and reserved for READ
+blk_idx: 212
+vblk_r_idx: 212 is wriiten and reserved for READ
+blk_idx: 213
+vblk_r_idx: 213 is wriiten and reserved for READ
+blk_idx: 214
+vblk_r_idx: 214 is wriiten and reserved for READ
+blk_idx: 215
+vblk_r_idx: 215 is wriiten and reserved for READ
+blk_idx: 216
+vblk_r_idx: 216 is wriiten and reserved for READ
+blk_idx: 217
+vblk_r_idx: 217 is wriiten and reserved for READ
+blk_idx: 218
+blk_idx: 219
+blk_idx: 220
+blk_idx: 221
+blk_idx: 222
+blk_idx: 223
+blk_idx: 224
+blk_idx: 225
+blk_idx: 226
+blk_idx: 227
+blk_idx: 228
+blk_idx: 229
+blk_idx: 230
+blk_idx: 231
+blk_idx: 232
+blk_idx: 233
+blk_idx: 234
+blk_idx: 235
+blk_idx: 236
+blk_idx: 237
+blk_idx: 238
+blk_idx: 239
+blk_idx: 240
+blk_idx: 241
+blk_idx: 242
+blk_idx: 243
+blk_idx: 244
+blk_idx: 245
+blk_idx: 246
+blk_idx: 247
+blk_idx: 248
+blk_idx: 249
+blk_idx: 250
+blk_idx: 251
+blk_idx: 252
+blk_idx: 253
+blk_idx: 254
+blk_idx: 255
+blk_idx: 256
+blk_idx: 257
+blk_idx: 258
+blk_idx: 259
+blk_idx: 260
+blk_idx: 261
+blk_idx: 262
+blk_idx: 263
+blk_idx: 264
+blk_idx: 265
+blk_idx: 266
+blk_idx: 267
+blk_idx: 268
+blk_idx: 269
+blk_idx: 270
+blk_idx: 271
+blk_idx: 272
+blk_idx: 273
+blk_idx: 274
+blk_idx: 275
+blk_idx: 276
+blk_idx: 277
+blk_idx: 278
+blk_idx: 279
+blk_idx: 280
+blk_idx: 281
+blk_idx: 282
+blk_idx: 283
+blk_idx: 284
+blk_idx: 285
+blk_idx: 286
+blk_idx: 287
+blk_idx: 288
+blk_idx: 289
+blk_idx: 290
+blk_idx: 291
+blk_idx: 292
+blk_idx: 293
+blk_idx: 294
+blk_idx: 295
+blk_idx: 296
+blk_idx: 297
+blk_idx: 298
+blk_idx: 299
+blk_idx: 300
+blk_idx: 301
+blk_idx: 302
+blk_idx: 303
+blk_idx: 304
+blk_idx: 305
+blk_idx: 306
+blk_idx: 307
+blk_idx: 308
+blk_idx: 309
+blk_idx: 310
+blk_idx: 311
+blk_idx: 312
+blk_idx: 313
+blk_idx: 314
+blk_idx: 315
+blk_idx: 316
+blk_idx: 317
+blk_idx: 318
+blk_idx: 319
+blk_idx: 320
+blk_idx: 321
+blk_idx: 322
+blk_idx: 323
+blk_idx: 324
+blk_idx: 325
+blk_idx: 326
+blk_idx: 327
+blk_idx: 328
+blk_idx: 329
+blk_idx: 330
+blk_idx: 331
+blk_idx: 332
+blk_idx: 333
+blk_idx: 334
+blk_idx: 335
+blk_idx: 336
+blk_idx: 337
+blk_idx: 338
+blk_idx: 339
+blk_idx: 340
+blk_idx: 341
+blk_idx: 342
+blk_idx: 343
+blk_idx: 344
+blk_idx: 345
+blk_idx: 346
+blk_idx: 347
+blk_idx: 348
+blk_idx: 349
+blk_idx: 350
+blk_idx: 351
+blk_idx: 352
+blk_idx: 353
+blk_idx: 354
+blk_idx: 355
+blk_idx: 356
+blk_idx: 357
+blk_idx: 358
+blk_idx: 359
+blk_idx: 360
+blk_idx: 361
+blk_idx: 362
+blk_idx: 363
+blk_idx: 364
+blk_idx: 365
+blk_idx: 366
+blk_idx: 367
+blk_idx: 368
+blk_idx: 369
+blk_idx: 370
+blk_idx: 371
+blk_idx: 372
+blk_idx: 373
+blk_idx: 374
+blk_idx: 375
+blk_idx: 376
+blk_idx: 377
+blk_idx: 378
+blk_idx: 379
+blk_idx: 380
+blk_idx: 381
+blk_idx: 382
+blk_idx: 383
+blk_idx: 384
+blk_idx: 385
+blk_idx: 386
+blk_idx: 387
+blk_idx: 388
+blk_idx: 389
+blk_idx: 390
+blk_idx: 391
+blk_idx: 392
+blk_idx: 393
+blk_idx: 394
+blk_idx: 395
+blk_idx: 396
+blk_idx: 397
+blk_idx: 398
+blk_idx: 399
+blk_idx: 400
+blk_idx: 401
+blk_idx: 402
+blk_idx: 403
+blk_idx: 404
+blk_idx: 405
+blk_idx: 406
+blk_idx: 407
+blk_idx: 408
+blk_idx: 409
+blk_idx: 410
+blk_idx: 411
+blk_idx: 412
+blk_idx: 413
+blk_idx: 414
+blk_idx: 415
+blk_idx: 416
+blk_idx: 417
+blk_idx: 418
+blk_idx: 419
+blk_idx: 420
+blk_idx: 421
+blk_idx: 422
+blk_idx: 423
+blk_idx: 424
+blk_idx: 425
+blk_idx: 426
+blk_idx: 427
+blk_idx: 428
+blk_idx: 429
+blk_idx: 430
+blk_idx: 431
+blk_idx: 432
+blk_idx: 433
+blk_idx: 434
+blk_idx: 435
+blk_idx: 436
+blk_idx: 437
+blk_idx: 438
+blk_idx: 439
+blk_idx: 440
+blk_idx: 441
+blk_idx: 442
+blk_idx: 443
+blk_idx: 444
+blk_idx: 445
+blk_idx: 446
+blk_idx: 447
+blk_idx: 448
+blk_idx: 449
+blk_idx: 450
+blk_idx: 451
+blk_idx: 452
+blk_idx: 453
+blk_idx: 454
+blk_idx: 455
+blk_idx: 456
+blk_idx: 457
+blk_idx: 458
+blk_idx: 459
+blk_idx: 460
+blk_idx: 461
+blk_idx: 462
+blk_idx: 463
+blk_idx: 464
+blk_idx: 465
+blk_idx: 466
+blk_idx: 467
+blk_idx: 468
+blk_idx: 469
+blk_idx: 470
+blk_idx: 471
+blk_idx: 472
+blk_idx: 473
+blk_idx: 474
+blk_idx: 475
+blk_idx: 476
+blk_idx: 477
+blk_idx: 478
+blk_idx: 479
+blk_idx: 480
+blk_idx: 481
+blk_idx: 482
+blk_idx: 483
+blk_idx: 484
+blk_idx: 485
+blk_idx: 486
+blk_idx: 487
+blk_idx: 488
+blk_idx: 489
+blk_idx: 490
+blk_idx: 491
+blk_idx: 492
+blk_idx: 493
+blk_idx: 494
+blk_idx: 495
+blk_idx: 496
+blk_idx: 497
+blk_idx: 498
+blk_idx: 499
+blk_idx: 500
+blk_idx: 501
+blk_idx: 502
+blk_idx: 503
+blk_idx: 504
+blk_idx: 505
+blk_idx: 506
+blk_idx: 507
+blk_idx: 508
+blk_idx: 509
+blk_idx: 510
+blk_idx: 511
+blk_idx: 512
+blk_idx: 513
+blk_idx: 514
+blk_idx: 515
+blk_idx: 516
+blk_idx: 517
+blk_idx: 518
+blk_idx: 519
+blk_idx: 520
+blk_idx: 521
+blk_idx: 522
+blk_idx: 523
+blk_idx: 524
+blk_idx: 525
+blk_idx: 526
+blk_idx: 527
+blk_idx: 528
+blk_idx: 529
+blk_idx: 530
+blk_idx: 531
+blk_idx: 532
+blk_idx: 533
+blk_idx: 534
+blk_idx: 535
+blk_idx: 536
+blk_idx: 537
+blk_idx: 538
+blk_idx: 539
+blk_idx: 540
+blk_idx: 541
+blk_idx: 542
+blk_idx: 543
+blk_idx: 544
+blk_idx: 545
+blk_idx: 546
+blk_idx: 547
+blk_idx: 548
+blk_idx: 549
+blk_idx: 550
+blk_idx: 551
+blk_idx: 552
+blk_idx: 553
+blk_idx: 554
+blk_idx: 555
+blk_idx: 556
+blk_idx: 557
+blk_idx: 558
+blk_idx: 559
+blk_idx: 560
+blk_idx: 561
+blk_idx: 562
+blk_idx: 563
+blk_idx: 564
+blk_idx: 565
+blk_idx: 566
+blk_idx: 567
+blk_idx: 568
+blk_idx: 569
+blk_idx: 570
+blk_idx: 571
+blk_idx: 572
+blk_idx: 573
+blk_idx: 574
+blk_idx: 575
+blk_idx: 576
+blk_idx: 577
+blk_idx: 578
+blk_idx: 579
+blk_idx: 580
+blk_idx: 581
+blk_idx: 582
+blk_idx: 583
+blk_idx: 584
+blk_idx: 585
+blk_idx: 586
+blk_idx: 587
+blk_idx: 588
+blk_idx: 589
+blk_idx: 590
+blk_idx: 591
+blk_idx: 592
+blk_idx: 593
+blk_idx: 594
+blk_idx: 595
+blk_idx: 596
+blk_idx: 597
+blk_idx: 598
+blk_idx: 599
+blk_idx: 600
+blk_idx: 601
+blk_idx: 602
+blk_idx: 603
+blk_idx: 604
+blk_idx: 605
+blk_idx: 606
+blk_idx: 607
+blk_idx: 608
+blk_idx: 609
+blk_idx: 610
+blk_idx: 611
+blk_idx: 612
+blk_idx: 613
+blk_idx: 614
+blk_idx: 615
+blk_idx: 616
+blk_idx: 617
+blk_idx: 618
+blk_idx: 619
+blk_idx: 620
+blk_idx: 621
+blk_idx: 622
+blk_idx: 623
+blk_idx: 624
+blk_idx: 625
+blk_idx: 626
+blk_idx: 627
+blk_idx: 628
+blk_idx: 629
+blk_idx: 630
+blk_idx: 631
+blk_idx: 632
+blk_idx: 633
+blk_idx: 634
+blk_idx: 635
+blk_idx: 636
+blk_idx: 637
+blk_idx: 638
+blk_idx: 639
+blk_idx: 640
+blk_idx: 641
+blk_idx: 642
+blk_idx: 643
+blk_idx: 644
+blk_idx: 645
+blk_idx: 646
+blk_idx: 647
+blk_idx: 648
+blk_idx: 649
+blk_idx: 650
+blk_idx: 651
+blk_idx: 652
+blk_idx: 653
+blk_idx: 654
+blk_idx: 655
+blk_idx: 656
+blk_idx: 657
+blk_idx: 658
+blk_idx: 659
+blk_idx: 660
+blk_idx: 661
+blk_idx: 662
+blk_idx: 663
+blk_idx: 664
+blk_idx: 665
+blk_idx: 666
+blk_idx: 667
+blk_idx: 668
+blk_idx: 669
+blk_idx: 670
+blk_idx: 671
+blk_idx: 672
+blk_idx: 673
+blk_idx: 674
+blk_idx: 675
+blk_idx: 676
+blk_idx: 677
+blk_idx: 678
+blk_idx: 679
+blk_idx: 680
+blk_idx: 681
+blk_idx: 682
+blk_idx: 683
+blk_idx: 684
+blk_idx: 685
+blk_idx: 686
+blk_idx: 687
+blk_idx: 688
+blk_idx: 689
+blk_idx: 690
+blk_idx: 691
+blk_idx: 692
+blk_idx: 693
+blk_idx: 694
+blk_idx: 695
+blk_idx: 696
+blk_idx: 697
+blk_idx: 698
+blk_idx: 699
+blk_idx: 700
+blk_idx: 701
+blk_idx: 702
+blk_idx: 703
+blk_idx: 704
+blk_idx: 705
+blk_idx: 706
+blk_idx: 707
+blk_idx: 708
+blk_idx: 709
+blk_idx: 710
+blk_idx: 711
+blk_idx: 712
+blk_idx: 713
+blk_idx: 714
+blk_idx: 715
+blk_idx: 716
+blk_idx: 717
+blk_idx: 718
+blk_idx: 719
+blk_idx: 720
+blk_idx: 721
+blk_idx: 722
+blk_idx: 723
+blk_idx: 724
+blk_idx: 725
+blk_idx: 726
+blk_idx: 727
+blk_idx: 728
+blk_idx: 729
+blk_idx: 730
+blk_idx: 731
+blk_idx: 732
+blk_idx: 733
+blk_idx: 734
+blk_idx: 735
+blk_idx: 736
+blk_idx: 737
+blk_idx: 738
+blk_idx: 739
+blk_idx: 740
+blk_idx: 741
+blk_idx: 742
+blk_idx: 743
+blk_idx: 744
+blk_idx: 745
+blk_idx: 746
+blk_idx: 747
+blk_idx: 748
+blk_idx: 749
+blk_idx: 750
+blk_idx: 751
+blk_idx: 752
+blk_idx: 753
+blk_idx: 754
+blk_idx: 755
+blk_idx: 756
+blk_idx: 757
+blk_idx: 758
+blk_idx: 759
+blk_idx: 760
+blk_idx: 761
+blk_idx: 762
+blk_idx: 763
+blk_idx: 764
+blk_idx: 765
+blk_idx: 766
+blk_idx: 767
+blk_idx: 768
+blk_idx: 769
+blk_idx: 770
+blk_idx: 771
+blk_idx: 772
+blk_idx: 773
+blk_idx: 774
+blk_idx: 775
+blk_idx: 776
+blk_idx: 777
+blk_idx: 778
+blk_idx: 779
+blk_idx: 780
+blk_idx: 781
+blk_idx: 782
+blk_idx: 783
+blk_idx: 784
+blk_idx: 785
+blk_idx: 786
+blk_idx: 787
+blk_idx: 788
+blk_idx: 789
+blk_idx: 790
+blk_idx: 791
+blk_idx: 792
+blk_idx: 793
+blk_idx: 794
+blk_idx: 795
+blk_idx: 796
+blk_idx: 797
+blk_idx: 798
+blk_idx: 799
+blk_idx: 800
+blk_idx: 801
+blk_idx: 802
+blk_idx: 803
+blk_idx: 804
+blk_idx: 805
+blk_idx: 806
+blk_idx: 807
+blk_idx: 808
+blk_idx: 809
+blk_idx: 810
+blk_idx: 811
+blk_idx: 812
+blk_idx: 813
+blk_idx: 814
+blk_idx: 815
+blk_idx: 816
+blk_idx: 817
+blk_idx: 818
+blk_idx: 819
+blk_idx: 820
+blk_idx: 821
+blk_idx: 822
+blk_idx: 823
+blk_idx: 824
+blk_idx: 825
+blk_idx: 826
+blk_idx: 827
+blk_idx: 828
+blk_idx: 829
+blk_idx: 830
+blk_idx: 831
+blk_idx: 832
+blk_idx: 833
+blk_idx: 834
+blk_idx: 835
+blk_idx: 836
+blk_idx: 837
+blk_idx: 838
+blk_idx: 839
+blk_idx: 840
+blk_idx: 841
+blk_idx: 842
+blk_idx: 843
+blk_idx: 844
+blk_idx: 845
+blk_idx: 846
+blk_idx: 847
+blk_idx: 848
+blk_idx: 849
+blk_idx: 850
+blk_idx: 851
+blk_idx: 852
+blk_idx: 853
+blk_idx: 854
+blk_idx: 855
+blk_idx: 856
+blk_idx: 857
+blk_idx: 858
+blk_idx: 859
+blk_idx: 860
+blk_idx: 861
+blk_idx: 862
+blk_idx: 863
+blk_idx: 864
+blk_idx: 865
+blk_idx: 866
+blk_idx: 867
+blk_idx: 868
+blk_idx: 869
+blk_idx: 870
+blk_idx: 871
+blk_idx: 872
+blk_idx: 873
+blk_idx: 874
+blk_idx: 875
+blk_idx: 876
+blk_idx: 877
+blk_idx: 878
+blk_idx: 879
+blk_idx: 880
+blk_idx: 881
+blk_idx: 882
+blk_idx: 883
+blk_idx: 884
+blk_idx: 885
+blk_idx: 886
+blk_idx: 887
+blk_idx: 888
+blk_idx: 889
+blk_idx: 890
+blk_idx: 891
+blk_idx: 892
+blk_idx: 893
+blk_idx: 894
+blk_idx: 895
+blk_idx: 896
+blk_idx: 897
+blk_idx: 898
+blk_idx: 899
+blk_idx: 900
+blk_idx: 901
+blk_idx: 902
+blk_idx: 903
+blk_idx: 904
+blk_idx: 905
+blk_idx: 906
+blk_idx: 907
+blk_idx: 908
+blk_idx: 909
+blk_idx: 910
+blk_idx: 911
+blk_idx: 912
+blk_idx: 913
+blk_idx: 914
+blk_idx: 915
+blk_idx: 916
+blk_idx: 917
+blk_idx: 918
+blk_idx: 919
+blk_idx: 920
+blk_idx: 921
+blk_idx: 922
+blk_idx: 923
+blk_idx: 924
+blk_idx: 925
+blk_idx: 926
+blk_idx: 927
+blk_idx: 928
+blk_idx: 929
+blk_idx: 930
+blk_idx: 931
+blk_idx: 932
+blk_idx: 933
+blk_idx: 934
+blk_idx: 935
+blk_idx: 936
+blk_idx: 937
+blk_idx: 938
+blk_idx: 939
+blk_idx: 940
+blk_idx: 941
+blk_idx: 942
+blk_idx: 943
+blk_idx: 944
+blk_idx: 945
+blk_idx: 946
+blk_idx: 947
+blk_idx: 948
+blk_idx: 949
+blk_idx: 950
+blk_idx: 951
+blk_idx: 952
+blk_idx: 953
+blk_idx: 954
+blk_idx: 955
+blk_idx: 956
+blk_idx: 957
+blk_idx: 958
+blk_idx: 959
+blk_idx: 960
+blk_idx: 961
+blk_idx: 962
+blk_idx: 963
+blk_idx: 964
+blk_idx: 965
+blk_idx: 966
+blk_idx: 967
+blk_idx: 968
+blk_idx: 969
+blk_idx: 970
+blk_idx: 971
+blk_idx: 972
+blk_idx: 973
+blk_idx: 974
+blk_idx: 975
+blk_idx: 976
+blk_idx: 977
+blk_idx: 978
+blk_idx: 979
+blk_idx: 980
+blk_idx: 981
+blk_idx: 982
+blk_idx: 983
+blk_idx: 984
+blk_idx: 985
+blk_idx: 986
+blk_idx: 987
+blk_idx: 988
+blk_idx: 989
+blk_idx: 990
+blk_idx: 991
+blk_idx: 992
+blk_idx: 993
+blk_idx: 994
+blk_idx: 995
+blk_idx: 996
+blk_idx: 997
+blk_idx: 998
+blk_idx: 999
+blk_idx: 1000
+blk_idx: 1001
+blk_idx: 1002
+blk_idx: 1003
+blk_idx: 1004
+blk_idx: 1005
+blk_idx: 1006
+blk_idx: 1007
+blk_idx: 1008
+blk_idx: 1009
+blk_idx: 1010
+blk_idx: 1011
+blk_idx: 1012
+blk_idx: 1013
+blk_idx: 1014
+blk_idx: 1015
+blk_idx: 1016
+blk_idx: 1017
+blk_idx: 1018
+blk_idx: 1019
+[WRITE], elapsed time: 526,  total_time: 526, total_count: 1
+[WRITE] MiB/s: 389353612167.300362
+[READ] size: 107374182400
+[READ] NBYTES_VBLK: 1073741824
+[READ] nr_iterate: 100
+[READ] Allocating vblk
+curs_r: 0
+returning vblk_r_idx for READ: 0
+[READ] size: 107374182400
+[READ] NBYTES_VBLK: 1073741824
+[READ] nr_iterate: 100
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 1
+returning vblk_r_idx for READ: 1
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+[READ] Allocating vblk
+curs_r: 2
+returning vblk_r_idx for READ: 2
+[READ] nvm_vblk_read
+curs_r: 3
+returning vblk_r_idx for READ: 3
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 4
+returning vblk_r_idx for READ: 4
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 5
+returning vblk_r_idx for READ: 5
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 6
+returning vblk_r_idx for READ: 6
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 7
+returning vblk_r_idx for READ: 7
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 8
+returning vblk_r_idx for READ: 8
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 9
+returning vblk_r_idx for READ: 9
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 10
+returning vblk_r_idx for READ: 10
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 11
+returning vblk_r_idx for READ: 11
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 12
+returning vblk_r_idx for READ: 12
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 13
+returning vblk_r_idx for READ: 13
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 14
+returning vblk_r_idx for READ: 14
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 15
+returning vblk_r_idx for READ: 15
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 16
+returning vblk_r_idx for READ: 16
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 17
+FREE or BAD - vblk: 17
+curs_r: 18
+returning vblk_r_idx for READ: 18
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 19
+returning vblk_r_idx for READ: 19
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 20
+returning vblk_r_idx for READ: 20
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 21
+returning vblk_r_idx for READ: 21
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 22
+returning vblk_r_idx for READ: 22
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 23
+returning vblk_r_idx for READ: 23
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 24
+returning vblk_r_idx for READ: 24
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 25
+returning vblk_r_idx for READ: 25
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 26
+returning vblk_r_idx for READ: 26
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 27
+returning vblk_r_idx for READ: 27
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 28
+returning vblk_r_idx for READ: 28
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 29
+returning vblk_r_idx for READ: 29
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 30
+returning vblk_r_idx for READ: 30
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 31
+returning vblk_r_idx for READ: 31
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 32
+returning vblk_r_idx for READ: 32
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 33
+returning vblk_r_idx for READ: 33
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 34
+returning vblk_r_idx for READ: 34
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 35
+returning vblk_r_idx for READ: 35
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 36
+returning vblk_r_idx for READ: 36
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 37
+returning vblk_r_idx for READ: 37
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 38
+returning vblk_r_idx for READ: 38
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 39
+returning vblk_r_idx for READ: 39
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 40
+returning vblk_r_idx for READ: 40
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 41
+FREE or BAD - vblk: 41
+curs_r: 42
+returning vblk_r_idx for READ: 42
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 43
+returning vblk_r_idx for READ: 43
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 44
+returning vblk_r_idx for READ: 44
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 45
+returning vblk_r_idx for READ: 45
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 46
+returning vblk_r_idx for READ: 46
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 47
+returning vblk_r_idx for READ: 47
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 48
+returning vblk_r_idx for READ: 48
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 49
+returning vblk_r_idx for READ: 49
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 50
+returning vblk_r_idx for READ: 50
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 51
+returning vblk_r_idx for READ: 51
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 52
+FREE or BAD - vblk: 52
+curs_r: 53
+returning vblk_r_idx for READ: 53
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 54
+returning vblk_r_idx for READ: 54
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 55
+returning vblk_r_idx for READ: 55
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 56
+returning vblk_r_idx for READ: 56
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 57
+returning vblk_r_idx for READ: 57
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 58
+returning vblk_r_idx for READ: 58
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 59
+returning vblk_r_idx for READ: 59
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 60
+returning vblk_r_idx for READ: 60
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 61
+returning vblk_r_idx for READ: 61
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 62
+returning vblk_r_idx for READ: 62
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 63
+FREE or BAD - vblk: 63
+curs_r: 64
+returning vblk_r_idx for READ: 64
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 65
+returning vblk_r_idx for READ: 65
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 66
+returning vblk_r_idx for READ: 66
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 67
+returning vblk_r_idx for READ: 67
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 68
+returning vblk_r_idx for READ: 68
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 69
+returning vblk_r_idx for READ: 69
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 70
+returning vblk_r_idx for READ: 70
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 71
+returning vblk_r_idx for READ: 71
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 72
+returning vblk_r_idx for READ: 72
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 73
+returning vblk_r_idx for READ: 73
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 74
+returning vblk_r_idx for READ: 74
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 75
+returning vblk_r_idx for READ: 75
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 76
+returning vblk_r_idx for READ: 76
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 77
+returning vblk_r_idx for READ: 77
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 78
+returning vblk_r_idx for READ: 78
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 79
+returning vblk_r_idx for READ: 79
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 80
+returning vblk_r_idx for READ: 80
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 81
+returning vblk_r_idx for READ: 81
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 82
+returning vblk_r_idx for READ: 82
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 83
+returning vblk_r_idx for READ: 83
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 84
+returning vblk_r_idx for READ: 84
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 85
+returning vblk_r_idx for READ: 85
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 86
+returning vblk_r_idx for READ: 86
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 87
+returning vblk_r_idx for READ: 87
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 88
+FREE or BAD - vblk: 88
+curs_r: 89
+returning vblk_r_idx for READ: 89
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 90
+returning vblk_r_idx for READ: 90
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 91
+returning vblk_r_idx for READ: 91
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 92
+returning vblk_r_idx for READ: 92
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 93
+returning vblk_r_idx for READ: 93
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 94
+returning vblk_r_idx for READ: 94
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 95
+returning vblk_r_idx for READ: 95
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 96
+FREE or BAD - vblk: 96
+curs_r: 97
+returning vblk_r_idx for READ: 97
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 98
+returning vblk_r_idx for READ: 98
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 99
+returning vblk_r_idx for READ: 99
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 100
+returning vblk_r_idx for READ: 100
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 101
+returning vblk_r_idx for READ: 101
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 102
+returning vblk_r_idx for READ: 102
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 103
+returning vblk_r_idx for READ: 103
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 104
+returning vblk_r_idx for READ: 104
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 105
+returning vblk_r_idx for READ: 105
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 106
+returning vblk_r_idx for READ: 106
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 107
+returning vblk_r_idx for READ: 107
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 108
+returning vblk_r_idx for READ: 108
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 109
+returning vblk_r_idx for READ: 109
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 110
+returning vblk_r_idx for READ: 110
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 111
+returning vblk_r_idx for READ: 111
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 112
+returning vblk_r_idx for READ: 112
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 113
+returning vblk_r_idx for READ: 113
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 114
+returning vblk_r_idx for READ: 114
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 115
+returning vblk_r_idx for READ: 115
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 116
+returning vblk_r_idx for READ: 116
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 117
+returning vblk_r_idx for READ: 117
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 118
+returning vblk_r_idx for READ: 118
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 119
+returning vblk_r_idx for READ: 119
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 120
+returning vblk_r_idx for READ: 120
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 121
+returning vblk_r_idx for READ: 121
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 122
+returning vblk_r_idx for READ: 122
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 123
+returning vblk_r_idx for READ: 123
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 124
+returning vblk_r_idx for READ: 124
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 125
+returning vblk_r_idx for READ: 125
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 126
+returning vblk_r_idx for READ: 126
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 127
+returning vblk_r_idx for READ: 127
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 128
+returning vblk_r_idx for READ: 128
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 129
+FREE or BAD - vblk: 129
+curs_r: 130
+returning vblk_r_idx for READ: 130
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 131
+returning vblk_r_idx for READ: 131
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 132
+returning vblk_r_idx for READ: 132
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 133
+returning vblk_r_idx for READ: 133
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 134
+returning vblk_r_idx for READ: 134
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 135
+returning vblk_r_idx for READ: 135
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 136
+returning vblk_r_idx for READ: 136
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 137
+returning vblk_r_idx for READ: 137
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 138
+returning vblk_r_idx for READ: 138
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 139
+returning vblk_r_idx for READ: 139
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 140
+returning vblk_r_idx for READ: 140
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 141
+returning vblk_r_idx for READ: 141
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 142
+returning vblk_r_idx for READ: 142
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 143
+returning vblk_r_idx for READ: 143
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 144
+returning vblk_r_idx for READ: 144
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 145
+returning vblk_r_idx for READ: 145
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 146
+returning vblk_r_idx for READ: 146
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 147
+returning vblk_r_idx for READ: 147
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 148
+returning vblk_r_idx for READ: 148
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 149
+returning vblk_r_idx for READ: 149
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 150
+returning vblk_r_idx for READ: 150
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 151
+returning vblk_r_idx for READ: 151
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 152
+returning vblk_r_idx for READ: 152
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 153
+returning vblk_r_idx for READ: 153
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 154
+returning vblk_r_idx for READ: 154
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 155
+returning vblk_r_idx for READ: 155
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 156
+returning vblk_r_idx for READ: 156
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 157
+returning vblk_r_idx for READ: 157
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 158
+returning vblk_r_idx for READ: 158
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 159
+returning vblk_r_idx for READ: 159
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 160
+returning vblk_r_idx for READ: 160
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 161
+returning vblk_r_idx for READ: 161
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 162
+returning vblk_r_idx for READ: 162
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 163
+returning vblk_r_idx for READ: 163
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 164
+returning vblk_r_idx for READ: 164
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 165
+returning vblk_r_idx for READ: 165
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 166
+returning vblk_r_idx for READ: 166
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 167
+returning vblk_r_idx for READ: 167
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 168
+returning vblk_r_idx for READ: 168
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 169
+returning vblk_r_idx for READ: 169
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 170
+FREE or BAD - vblk: 170
+curs_r: 171
+returning vblk_r_idx for READ: 171
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 172
+returning vblk_r_idx for READ: 172
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 173
+returning vblk_r_idx for READ: 173
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 174
+returning vblk_r_idx for READ: 174
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 175
+returning vblk_r_idx for READ: 175
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 176
+returning vblk_r_idx for READ: 176
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 177
+returning vblk_r_idx for READ: 177
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 178
+returning vblk_r_idx for READ: 178
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 179
+returning vblk_r_idx for READ: 179
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 180
+returning vblk_r_idx for READ: 180
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 181
+returning vblk_r_idx for READ: 181
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 182
+returning vblk_r_idx for READ: 182
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 183
+returning vblk_r_idx for READ: 183
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 184
+returning vblk_r_idx for READ: 184
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 185
+returning vblk_r_idx for READ: 185
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 186
+returning vblk_r_idx for READ: 186
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 187
+returning vblk_r_idx for READ: 187
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 188
+returning vblk_r_idx for READ: 188
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 189
+returning vblk_r_idx for READ: 189
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 190
+returning vblk_r_idx for READ: 190
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 191
+returning vblk_r_idx for READ: 191
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 192
+returning vblk_r_idx for READ: 192
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 193
+returning vblk_r_idx for READ: 193
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 194
+returning vblk_r_idx for READ: 194
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 195
+returning vblk_r_idx for READ: 195
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 196
+returning vblk_r_idx for READ: 196
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 197
+returning vblk_r_idx for READ: 197
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 198
+returning vblk_r_idx for READ: 198
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 199
+returning vblk_r_idx for READ: 199
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 200
+returning vblk_r_idx for READ: 200
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 201
+returning vblk_r_idx for READ: 201
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 202
+returning vblk_r_idx for READ: 202
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 203
+returning vblk_r_idx for READ: 203
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 204
+returning vblk_r_idx for READ: 204
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 205
+returning vblk_r_idx for READ: 205
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 206
+returning vblk_r_idx for READ: 206
+[READ] nvm_vblk_read
+[READ] Allocating vblk
+curs_r: 207
+returning vblk_r_idx for READ: 207
+[READ] nvm_vblk_read
+[READ] nvm_vblk_read: done
+[READ] nvm_vblk_read: done
+[READ], elapsed time: 49386982011,  total_time: 49386982537, total_count: 2
+[READ] MiB/s: 4146.841728
