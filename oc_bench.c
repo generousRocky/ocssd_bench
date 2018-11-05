@@ -6,19 +6,18 @@
 #include <string.h>
 #include <time.h>
 #include <errno.h>
+#include "profile.h"
 
 #define NVM_DEV_PATH "/dev/nvme0n1"
 
 #define NR_PUNITS 128
 #define NR_BLOCKS 1020
 
-#define NR_W_THREADS 1
-#define NR_R_THREADS 1
-
 #define NR_BLKS_IN_VBLK 128
 #define NR_VBLKS 1020 * (NR_PUNITS / NR_BLKS_IN_VBLK)
-size_t NBYTES_VBLK = (size_t)NR_BLKS_IN_VBLK*1024*1024*16;
 
+#define NR_W_THREADS 1
+#define NR_R_THREADS 1
 
 //#define NBYTES_TO_WRITE  10737418240 // 10GB
 #define NBYTES_TO_WRITE  21474836480 // 20GB
@@ -30,43 +29,23 @@ enum{
 	BAD,
 };
 
+pthread_mutex_t  mutex_w = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t  mutex_r = PTHREAD_MUTEX_INITIALIZER;
+
 static char nvm_dev_path[] = NVM_DEV_PATH;
 static struct nvm_dev *dev;
 static const struct nvm_geo *geo;
-//
-struct nvm_buf_set *bufs = NULL;
 
+struct nvm_buf_set *bufs = NULL;
 struct nvm_addr punits_[NR_PUNITS];
 struct nvm_vblk* vblks_[NR_VBLKS];
+
 int vblks_state[NR_VBLKS];
-size_t curs=0;
 
+size_t curs_w=0;
+size_t curs_r=0;
 size_t NBYTES_IO = (size_t)(NBYTES_TO_WRITE/NR_W_THREADS); // per a thread
-
-//function level profiling
-#define BILLION     (1000000001ULL)
-#define calclock(timevalue, total_time, total_count, delay_time) do { \
-  unsigned long long timedelay, temp, temp_n; \
-  struct timespec *myclock = (struct timespec*)timevalue; \
-  if(myclock[1].tv_nsec >= myclock[0].tv_nsec){ \
-    temp = myclock[1].tv_sec - myclock[0].tv_sec; \
-    temp_n = myclock[1].tv_nsec - myclock[0].tv_nsec; \
-    timedelay = BILLION * temp + temp_n; \
-  } else { \
-    temp = myclock[1].tv_sec - myclock[0].tv_sec - 1; \
-    temp_n = BILLION + myclock[1].tv_nsec - myclock[0].tv_nsec; \
-    timedelay = BILLION * temp + temp_n; \
-  } \
-  *delay_time = timedelay; \
-  __sync_fetch_and_add(total_time, timedelay); \
-  __sync_fetch_and_add(total_count, 1); \
-} while(0)
-
-//Global function time/count variables
-unsigned long long total_time, total_count;
-
-pthread_mutex_t  mutex = PTHREAD_MUTEX_INITIALIZER; // 쓰레드 초기화 
-
+size_t NBYTES_VBLK = (size_t)NR_BLKS_IN_VBLK*1024*1024*16;
 
 
 void free_all(){
@@ -76,35 +55,80 @@ void free_all(){
   return;
 }
 
-struct nvm_vblk* get_vblk(void){
+struct nvm_vblk* get_vblk_for_read(void){
+	pthread_mutex_lock(&mutex_r);
 
-	pthread_mutex_lock(&mutex);
+  for (size_t i = 0; i < NR_VBLKS/2; i++) {
+   	size_t adjusted_curs_r;
 
-  for (size_t i = 0; i < NR_VBLKS; i++) {
+		
+		printf("curs_r: %zu\n", curs_r);
+		printf("switch: %zu\n", NBYTES_TO_READ/NBYTES_VBLK);
+
+		if(curs_r > NBYTES_TO_READ/NBYTES_VBLK){
+			break;			
+		}
+
+	  curs_r = curs_r % (NR_VBLKS/2);
+		adjusted_curs_r = curs_r + (NR_VBLKS/2);
+
+    switch (vblks_state[adjusted_curs_r]) {
+
+		case RESERVED:
+			printf("returning vblk_idx for READ: %zu\n", adjusted_curs_r);
+			curs_r++;	
+			pthread_mutex_unlock(&mutex_r);
+			return vblks_[adjusted_curs_r];
+		
+		case FREE:
+    case BAD:
+			printf("FREE or BAD - vblk: %zu\n", adjusted_curs_r);
+			break;
+    }
+  
+		curs_r++;	
+	}
+
+	printf("No available vblk for READ\n");
+	pthread_mutex_unlock(&mutex_w);
+  return NULL;
+
+
+}
+
+struct nvm_vblk* get_vblk_for_write(void){
+
+	pthread_mutex_lock(&mutex_w);
+
+  for (size_t i = 0; i < NR_VBLKS/2; i++) {
     
-		curs++;
-	  curs = curs % NR_VBLKS;
+	  curs_w = curs_w % (NR_VBLKS/2);
 
-    switch (vblks_state[curs]) {
+    switch (vblks_state[curs_w]) {
     case FREE:
-      if (nvm_vblk_erase(vblks_[curs]) < 0) {
-        vblks_state[curs] = BAD;
-        break;
+      if (nvm_vblk_erase(vblks_[curs_w]) < 0) {
+        vblks_state[curs_w] = BAD;
+        
+				printf("WARNING: fail to erase vblk: %zu\n", curs_w);
+				break;
       }
 
-      vblks_state[curs] = RESERVED;
-			printf("returning vblk_idx: %zu\n", curs);
-			pthread_mutex_unlock(&mutex);
-			return vblks_[curs];
+      vblks_state[curs_w] = RESERVED;
+			printf("returning vblk_idx for WRITE: %zu\n", curs_w);
+			curs_w++;
+			pthread_mutex_unlock(&mutex_w);
+			return vblks_[curs_w];
 
     case RESERVED:
     case BAD:
       break;
     }
-  }
+		
+		curs_w++;
+	}
 
 	printf("No available vblk\n");
-	pthread_mutex_unlock(&mutex);
+	pthread_mutex_unlock(&mutex_w);
   return NULL;
 }
 
@@ -120,6 +144,17 @@ void nvm_init(){
 	}
 
 	geo = nvm_dev_get_geo(dev);
+	
+	
+	printf("Allocating nvm_buf_set\n");
+	bufs = nvm_buf_set_alloc(dev, NBYTES_VBLK, 0);
+	if (!bufs) {
+		printf("FAILED: Allocating nvm_buf_set\n");
+		exit(-1);
+	}
+
+	printf("nvm_buf_set_fill\n");
+	nvm_buf_set_fill(bufs);
 
 	// Construct punit addrs
 	for (size_t i = 0; i < 128; ++i){
@@ -136,114 +171,149 @@ void nvm_init(){
   
 	size_t vblk_idx = 0;
 	size_t nr_iterate_to_read = 0; // up to NBYTES_TO_READ / NBYTES_VBLK;
-	printf("nr_iterate_to_read: %zu\n", nr_iterate_to_read);
+	printf("up to nr_iterate_to_read: %zu\n", NBYTES_TO_READ / NBYTES_VBLK);
 
 	for(size_t blk_idx =0; blk_idx< NR_BLOCKS; blk_idx++){
 		printf("blk_idx: %zu\n", blk_idx);
-		for(size_t i=0; i<128/NR_BLKS_IN_VBLK; i++){
+		for(size_t i=0; i<NR_PUNITS/NR_BLKS_IN_VBLK; i++){
+			
 			struct nvm_vblk *blk;
 			struct nvm_addr addrs[NR_BLKS_IN_VBLK];
+		
 			for(size_t j=0; j<NR_BLKS_IN_VBLK; j++){
 				addrs[j] = punits_[NR_BLKS_IN_VBLK*i+j];
 				addrs[j].g.blk = blk_idx;
 			}
 
-			printf("vblk_idx: %zu\n", vblk_idx);
+			//printf("vblk_idx: %zu\n", vblk_idx);
 			blk = nvm_vblk_alloc(dev, addrs, NR_BLKS_IN_VBLK);
 			if (!blk) {
 				perror("FAILED: nvm_vblk_alloc_line");
 				exit(-1);
 			}
 
-			if(vblk_idx < NR_VBLKS){ // vblks for write;
-				vblks_[vblk_idx] = blk; vblk_idx++;
+			if(vblk_idx < NR_VBLKS/2){
+				// vblks for write;
+				vblks_[vblk_idx] = blk;
 				vblks_state[vblk_idx] = FREE;
+				vblk_idx++;
 			}
 			else{
+				// half of vblks are reserved of READ
 				if(nr_iterate_to_read < NBYTES_TO_READ/NBYTES_VBLK){
 					if (nvm_vblk_erase(blk) < 0) {
-						vblks_state[curs] = BAD;
+						vblks_state[vblk_idx] = BAD;
 					}
 					else{
-						// 쓰기
-						// 버퍼 할당, 생각
+						if (nvm_vblk_write(blk, bufs->write, NBYTES_VBLK) < 0) {
+							printf("FAILED: nvm_vblk_write\n");
+							nvm_buf_set_free(bufs);
+							exit(-1);
+						}
 
-						vblks_state[curs] = RESERVED;
+
+						printf("init(write) vblk_idx: %zu\n", vblk_idx);
+
+						vblks_state[vblk_idx] = RESERVED;
 						nr_iterate_to_read++;	
 					}
 				}
+				else{
+					vblks_state[vblk_idx] = FREE;
+				}
 				
-				vblks_[vblk_idx] = blk; vblk_idx++;
+				vblks_[vblk_idx] = blk;
+				vblk_idx++;
 			}
 		}
 	}
-
-	//////
-	
-	printf("Allocating nvm_buf_set\n");
-	bufs = nvm_buf_set_alloc(dev, NBYTES_VBLK, 0);
-	if (!bufs) {
-		printf("FAILED: Allocating nvm_buf_set\n");
-		exit(-1);
-	}
-
-	printf("nvm_buf_set_fill\n");
-	nvm_buf_set_fill(bufs);
-
 }
 
 void *t_writer(void *data)
 {
+	struct nvm_vblk* vblk; 
+
 	size_t* size = (size_t*)data;
-	printf("size: %zu\n", *size);
-  
-	printf("NBYTES_VBLK: %zu\n", NBYTES_VBLK);
 	int nr_iterate = ((*size)/NBYTES_VBLK);
 	
-	if(*size%NBYTES_VBLK > 0){
+	printf("[WIRTE] size: %zu\n", *size);
+	printf("[WIRTE] NBYTES_VBLK: %zu\n", NBYTES_VBLK);
+	
+	if((*size)%NBYTES_VBLK > 0){
 		nr_iterate++;
 	}
 
-	printf("nr_iterate: %d\n", nr_iterate);
-  struct nvm_vblk* vblk; 
+	printf("[WIRTE] nr_iterate: %d\n", nr_iterate);
   
 	for(int i=0; i< nr_iterate; i++){
+    printf("[WIRTE] Allocating vblk\n");
+    vblk = get_vblk_for_write();
     
-    printf("Allocating vblk\n");
-    vblk = get_vblk();
-    if(vblk == NULL){
-      printf("FAILED: Allocating vblk\n");
+		if(vblk == NULL){
+      printf("[WIRTE] FAILED: Allocating vblk\n");
       goto out;
     }
 		
-		printf("nvm_vblk_write\n");
+		printf("[WIRTE] nvm_vblk_write\n");
     if (nvm_vblk_write(vblk, bufs->write, NBYTES_VBLK) < 0) {
-      printf("FAILED: nvm_vblk_write\n");
+      printf("[WIRTE] FAILED: nvm_vblk_write\n");
       goto out;
     }
 	}
 	
-  printf("nvm_vblk_write: done\n");
+  printf("[WIRTE] nvm_vblk_write: done\n");
   return 0;
 
+
+	printf("[write] out!\n");
 out:
   nvm_buf_set_free(bufs);
   free_all();
   exit(-1);
 }
 
+// 멀티 스레드랑 읽는 회수랑 cur랑 지금 안맞는 것 같음.
 void *t_reader(void *data)
 {
-	int* size = (int*)data;
-	/*
-	if (nvm_vblk_read(vblk, bufs->read, NBYTES_VBLK) < 0) {
-		printf("FAILED: nvm_vblk_read\n");
-		goto out;
+  struct nvm_vblk* vblk; 
+	
+	size_t* size = (size_t*)data;
+	int nr_iterate = ((*size)/NBYTES_VBLK);
+	
+	printf("[READ] size: %zu\n", *size);
+	printf("[READ] NBYTES_VBLK: %zu\n", NBYTES_VBLK);
+	
+	if((*size)%NBYTES_VBLK > 0){
+		nr_iterate++;
 	}
-	*/
+	
+	printf("[READ] nr_iterate: %d\n", nr_iterate);
+	
+	for(int i=0; i< nr_iterate; i++){
+		printf("[READ] i: %d\n", i);
 
-	// init에서 써 준 만큼 vblk쓰기
-	// thread 여러 개 일때 생각 해 보자. 
+    printf("[READ] Allocating vblk\n");
+    vblk = get_vblk_for_read();
+    if(vblk == NULL){
+      printf("[READ] FAILED: Allocating vblk\n");
+      goto out;
+    }
+		
+		printf("[READ] nvm_vblk_read\n");
+    if (nvm_vblk_read(vblk, bufs->read, NBYTES_VBLK) < 0) {
+      printf("[READ] FAILED: nvm_vblk_read\n");
+      goto out;
+    }
+	}
+	
+  printf("[READ] nvm_vblk_read: done\n");
+  return 0;
+
+out:
+  nvm_buf_set_free(bufs);
+  free_all();
+  exit(-1);
+
 }
 
 void *io_manager(void *data){
@@ -263,9 +333,12 @@ void *io_manager(void *data){
 	int status;
 	int rw = *((int*)data);
 
-	if(rw = 1){ // writer
+	printf("rw: %d\n", rw);
+
+	if(rw == 0){ // writer
 		for(int i=0; i<NR_W_THREADS; i++){
 			args_w_size[i] = NBYTES_IO;
+			printf("args_w_size[i]: %zu\n", args_w_size[i]);
 			thr_id = pthread_create(&w_thread[i], NULL, t_writer, &args_w_size[i]);
 			if (thr_id < 0){
 				perror("thread create error : ");
@@ -273,9 +346,11 @@ void *io_manager(void *data){
 			}
 		}	
 	}
-	else{ // reader
+	
+	if(rw == 1){ // reader
 		for(int i=0; i<NR_R_THREADS; i++){
 			args_r_size[i] = NBYTES_IO;
+			printf("args_r_size[i]: %zu\n", args_r_size[i]);
 			thr_id = pthread_create(&r_thread[i], NULL, t_reader, &args_r_size[i]);
 			if (thr_id < 0){
 				perror("thread create error : ");
@@ -284,12 +359,13 @@ void *io_manager(void *data){
 		}	
 	}
 
-	if(rw = 1){ // writer
+	if(rw == 0){ // writer
 		for(int i=0; i<NR_W_THREADS; i++){
 			pthread_join(w_thread[i], (void **)&status);
 		}	
 	}
-	else{ // reader
+	
+	if(rw == 1){ // reader
 		for(int i=0; i<NR_R_THREADS; i++){
 			pthread_join(r_thread[i], (void **)&status);
 		}	
@@ -299,7 +375,12 @@ void *io_manager(void *data){
   clock_gettime(CLOCK_MONOTONIC, &local_time[1]);
   calclock(local_time, &total_time, &total_count, &delay_time );
 
-  printf("[WRITE], elapsed time: %llu,  total_time: %llu, total_count: %llu\n", delay_time, total_time, total_count);
+	if(rw == 0){
+		printf("[WRITE], elapsed time: %llu,  total_time: %llu, total_count: %llu\n", delay_time, total_time, total_count);
+	}
+	else{
+		printf("[READ], elapsed time: %llu,  total_time: %llu, total_count: %llu\n", delay_time, total_time, total_count);
+	}
 }
 
 
@@ -320,17 +401,17 @@ int main()
 		perror("thread create error : ");
 		exit(0);
 	}
-#if 0
 
+	/*
 	thr_id = pthread_create(&m_thread[1], NULL, io_manager, &flag_reader);
 	if (thr_id < 0){
 		perror("thread create error : ");
 		exit(0);
 	}
-
-	pthread_join(m_thread[1], (void **)&status);
-#endif 
-  pthread_join(m_thread[0], (void **)&status);
+	*/
+  
+	pthread_join(m_thread[0], (void **)&status);
+	//pthread_join(m_thread[1], (void **)&status);
 
 	// free
 	free_all();
@@ -341,3 +422,5 @@ int main()
 	
 	return 0;
 }
+
+
