@@ -10,19 +10,20 @@
 
 #define NVM_DEV_PATH "/dev/nvme0n1"
 
-#define NR_PUNITS 128
+// lun1개에 읽기 쓰기 실험을 하고 싶은 경우 NR_PUNITS 2로 해야 각각 1, 1로 실험 할 수 있음.
+#define NR_PUNITS 2
 #define NR_BLOCKS 1020
 
-#define NR_BLKS_IN_VBLK 32
+#define NR_BLKS_IN_VBLK 1
 #define NR_VBLKS_W 1020 * (NR_PUNITS / NR_BLKS_IN_VBLK) / 2
 #define NR_VBLKS_R 1020 * (NR_PUNITS / NR_BLKS_IN_VBLK) / 2
 
-#define NR_W_THREADS 4
-#define NR_R_THREADS 0
+#define NR_W_THREADS 1
+#define NR_R_THREADS 1
 
 //#define NBYTES_TO_WRITE  10737418240 // 10GB
-#define NBYTES_TO_WRITE  214748364800 // 200GB
-#define NBYTES_TO_READ  214748364800 // 200GB
+#define NBYTES_TO_WRITE  2147483648 // 2GB
+#define NBYTES_TO_READ  2147483648 // 2GB
 
 enum{
 	FREE,
@@ -43,8 +44,8 @@ struct nvm_addr punits_[NR_PUNITS];
 struct nvm_vblk* vblks_w[NR_VBLKS_W];
 struct nvm_vblk* vblks_r[NR_VBLKS_R];
 
-int vblks_state_r[NR_VBLKS_W];
-int vblks_state_w[NR_VBLKS_R];
+int vblks_state_r[NR_VBLKS_R];
+int vblks_state_w[NR_VBLKS_W];
 
 size_t curs_w=-1;
 size_t curs_r=-1;
@@ -68,13 +69,11 @@ struct nvm_vblk* get_vblk_for_read(void){
    	size_t adjusted_curs_r;
 
 		curs_r++;	
-		printf("curs_r: %zu\n", curs_r);
 	  curs_r = curs_r % NR_VBLKS_R;
 
     switch (vblks_state_r[curs_r]) {
 
 		case RESERVED:
-			printf("returning vblk_r_idx for READ: %zu\n", curs_r);
 			pthread_mutex_unlock(&mutex_r);
 			return vblks_r[curs_r];
 		
@@ -94,29 +93,28 @@ struct nvm_vblk* get_vblk_for_write(void){
 
 	pthread_mutex_lock(&mutex_w);
 
-  for (size_t i = 0; i < NR_VBLKS_W; i++) {
-    
+	for (size_t i = 0; i < NR_VBLKS_W; i++) {
+
 		curs_w++;
-	  curs_w = curs_w % NR_VBLKS_W;
+		curs_w = curs_w % NR_VBLKS_W;
 
-    switch (vblks_state_w[curs_w]) {
-    case FREE:
-      if (nvm_vblk_erase(vblks_w[curs_w]) < 0) {
-        vblks_state_w[curs_w] = BAD;
-        
-				printf("WARNING: fail to erase vblk: %zu\n", curs_w);
+		switch (vblks_state_w[curs_w]) {
+			case FREE:
+				if( nvm_vblk_erase(vblks_w[curs_w]) < 0) {
+					vblks_state_w[curs_w] = BAD;
+
+					printf("WARNING: fail to erase vblk: %zu\n", curs_w);
+					break;
+				}
+
+				vblks_state_w[curs_w] = RESERVED;
+				pthread_mutex_unlock(&mutex_w);
+				return vblks_w[curs_w];
+
+			case RESERVED:
+			case BAD:
 				break;
-      }
-
-      vblks_state_w[curs_w] = RESERVED;
-			printf("returning vblk_w_idx_ for WRITE: %zu\n", curs_w);
-			pthread_mutex_unlock(&mutex_w);
-			return vblks_w[curs_w];
-
-    case RESERVED:
-    case BAD:
-      break;
-    }
+		}
 	}
 
 	printf("No available vblk\n");
@@ -159,11 +157,10 @@ void nvm_init(){
 		punits_[i] = addr;
 	}
 
-
-
   // Initialize and allocate vblks with defaults (Free)
 	size_t vblk_w_idx = 0;
 	size_t vblk_r_idx = 0;
+	
 	size_t nr_iterate_to_read = 0; // up to NBYTES_TO_READ / NBYTES_VBLK;
 	printf("up to nr_iterate_to_read: %zu\n", NBYTES_TO_READ / NBYTES_VBLK);
 
@@ -180,7 +177,6 @@ void nvm_init(){
 				addrs[j].g.blk = blk_idx;
 			}
 
-			//printf("vblk_idx: %zu\n", vblk_idx);
 			blk = nvm_vblk_alloc(dev, addrs, NR_BLKS_IN_VBLK);
 			if (!blk) {
 				perror("FAILED: nvm_vblk_alloc_line");
@@ -190,6 +186,7 @@ void nvm_init(){
 			
 			if(i < (NR_PUNITS/NR_BLKS_IN_VBLK)/2){
 				// vblks reserved for writes
+				printf("vblk_w_idx: %zu is initialized\n", vblk_w_idx);
 				vblks_w[vblk_w_idx] = blk;
 				vblks_state_w[vblk_w_idx] = FREE;
 				vblk_w_idx++;
@@ -392,22 +389,31 @@ int main()
 	int flag_reader=1;
 
 	nvm_init();
-
-	thr_id = pthread_create(&m_thread[0], NULL, io_manager, &flag_writer);
-	if (thr_id < 0){
-		perror("thread create error : ");
-		exit(0);
+	
+	if(NR_W_THREADS > 0){
+		thr_id = pthread_create(&m_thread[0], NULL, io_manager, &flag_writer);
+		if (thr_id < 0){
+			perror("thread create error : ");
+			exit(0);
+		}
 	}
 
-	thr_id = pthread_create(&m_thread[1], NULL, io_manager, &flag_reader);
-	if (thr_id < 0){
-		perror("thread create error : ");
-		exit(0);
+	if(NR_R_THREADS > 0){
+		thr_id = pthread_create(&m_thread[1], NULL, io_manager, &flag_reader);
+		if (thr_id < 0){
+			perror("thread create error : ");
+			exit(0);
+		}
 	}
-  
-	pthread_join(m_thread[0], (void **)&status);
-	pthread_join(m_thread[1], (void **)&status);
 
+	if(NR_W_THREADS > 0){
+		pthread_join(m_thread[0], (void **)&status);
+	}
+
+	if(NR_R_THREADS > 0){
+		pthread_join(m_thread[1], (void **)&status);
+	}
+	
 	// free
 	free_all();
   nvm_buf_set_free(bufs);
