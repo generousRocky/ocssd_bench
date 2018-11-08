@@ -20,9 +20,8 @@
 #define NR_W_THREADS 4
 #define NR_R_THREADS 0
 
-//#define NBYTES_TO_WRITE  10737418240 // 10GB
-#define NBYTES_TO_WRITE  214748364800 // 200GB
-#define NBYTES_TO_READ  214748364800 // 200GB
+#define NBYTES_TO_WRITE  21474836480 // 20GB
+#define NBYTES_TO_READ  21474836480 // 20GB
 
 enum{
 	FREE,
@@ -169,7 +168,7 @@ void nvm_init(){
 
 	for(size_t blk_idx =0; blk_idx< NR_BLOCKS; blk_idx++){
 		printf("blk_idx: %zu\n", blk_idx);
-		for(size_t i=0; i<NR_PUNITS/NR_BLKS_IN_VBLK; i++){ // i < 128/64 // i = 0, 1
+		for(size_t i=0; i<NR_PUNITS/NR_BLKS_IN_VBLK; i++){ // i < 128/32 // i = 0, 1, 2, 3
 			
 
 			struct nvm_vblk *blk;
@@ -180,7 +179,6 @@ void nvm_init(){
 				addrs[j].g.blk = blk_idx;
 			}
 
-			//printf("vblk_idx: %zu\n", vblk_idx);
 			blk = nvm_vblk_alloc(dev, addrs, NR_BLKS_IN_VBLK);
 			if (!blk) {
 				perror("FAILED: nvm_vblk_alloc_line");
@@ -188,7 +186,7 @@ void nvm_init(){
 			}
 			
 			
-			if(i < (NR_PUNITS/NR_BLKS_IN_VBLK)/2){
+			if(i < (NR_PUNITS/NR_BLKS_IN_VBLK)/2){ // e.g. (128/32)/2 = 2
 				// vblks reserved for writes
 				vblks_w[vblk_w_idx] = blk;
 				vblks_state_w[vblk_w_idx] = FREE;
