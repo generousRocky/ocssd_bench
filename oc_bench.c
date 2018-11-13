@@ -1,4 +1,3 @@
-// ISOLATED IMPLEMENTATION
 #include <pthread.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -9,7 +8,16 @@
 #include <errno.h>
 #include "profile.h"
 
-#define IS_ISOLATED 1
+#define IS_ISOLATED 0
+
+// same as the number of LUN in VBLK
+#define NR_BLKS_IN_VBLK 128 // must not be beyond (NR_PUNITS/2)
+
+#define NR_W_THREADS 1
+#define NR_R_THREADS 1
+
+#define NBYTES_TO_WRITE 68719476736 // 64GB
+#define NBYTES_TO_READ 68719476736 // 64GB
 
 #define NVM_DEV_PATH "/dev/nvme0n1"
 
@@ -17,17 +25,14 @@
 #define NR_PUNITS 128
 #define NR_BLOCKS 1020
 
-// same as the number of LUN in VBLK
-#define NR_BLKS_IN_VBLK 64 // must not be beyond (NR_PUNITS/2)
+#define NR_VBLKS_W (size_t)(1020 * ((NR_PUNITS / NR_BLKS_IN_VBLK) / (double)2))
+#define NR_VBLKS_R (size_t)(1020 * ((NR_PUNITS / NR_BLKS_IN_VBLK) / (double)2))
 
-#define NR_VBLKS_W (1020 * ((NR_PUNITS / NR_BLKS_IN_VBLK) / 2))
-#define NR_VBLKS_R (1020 * ((NR_PUNITS / NR_BLKS_IN_VBLK) / 2))
+#define DEBUG_ENABLE 1
+#define debug_print(fmt, ...) \
+	do { if (DEBUG_ENABLE) fprintf(stderr, "%s::%d::%s(): " fmt, __FILE__, \
+			__LINE__, __func__, ##__VA_ARGS__); } while (0)
 
-#define NR_W_THREADS 16
-#define NR_R_THREADS 16
-
-#define NBYTES_TO_WRITE  21474836480 // 20GB
-#define NBYTES_TO_READ  21474836480 // 20GB
 
 enum{
 	FREE,
@@ -62,9 +67,13 @@ size_t NBYTES_VBLK = (size_t)NR_BLKS_IN_VBLK*1024*1024*16;
 void free_all(){
 	for(size_t i=0; i<NR_VBLKS_W; i++){
 		nvm_vblk_free(vblks_w[i]);
+	}
+	
+	for(size_t i=0; i<NR_VBLKS_R; i++){
 		nvm_vblk_free(vblks_r[i]);
 	}
-  return;
+  
+	return;
 }
 
 struct nvm_vblk* get_vblk_for_read(void){
@@ -81,14 +90,14 @@ struct nvm_vblk* get_vblk_for_read(void){
 
 			case FREE:
 			case BAD:
-				printf("FREE or BAD - vblk: %d\n", curs_r);
+				debug_print("FREE or BAD - vblk: %d\n", curs_r);
 				break;
 		}
 
-		printf("out of switch\n");
+		debug_print("out of switch\n");
 	}
 
-	printf("No available vblk for READ\n");
+	debug_print("No available vblk for READ\n");
 	pthread_mutex_unlock(&mutex_r);
   return NULL;
 }
@@ -97,21 +106,23 @@ struct nvm_vblk* get_vblk_for_write(void){
 	pthread_mutex_lock(&mutex_w);
 
 	for (size_t i = 0; i < NR_VBLKS_W; i++) {
+		//debug_print("[WRITE] get_vblk_for_write - iterate: %zu, curs_w: %d\n", i, curs_w);
+
 		curs_w++;
-		curs_w = curs_w % NR_VBLKS_W;
+		curs_w = curs_w % (int)NR_VBLKS_W;
 
 		switch (vblks_state_w[curs_w]) {
 			case FREE:
 				if( nvm_vblk_erase(vblks_w[curs_w]) < 0) {
 					vblks_state_w[curs_w] = BAD;
 
-					printf("WARNING: fail to erase vblk: %d\n", curs_w);
+					debug_print("WARNING: fail to erase vblk: %d\n", curs_w);
 					break;
 				}
 
 				vblks_state_w[curs_w] = RESERVED;
 				pthread_mutex_unlock(&mutex_w);
-				printf("[WRITE] get_vblk: %d\n", curs_w);
+				//debug_print("[WRITE] get_vblk: %d\n", curs_w);
 				return vblks_w[curs_w];
 
 			case RESERVED:
@@ -120,7 +131,7 @@ struct nvm_vblk* get_vblk_for_write(void){
 		}
 	}
 
-	printf("No available vblk\n");
+	debug_print("No available vblk\n");
 	pthread_mutex_unlock(&mutex_w);
   return NULL;
 }
@@ -138,14 +149,14 @@ void nvm_init(){
 
 	geo = nvm_dev_get_geo(dev);
 	
-	printf("Allocating nvm_buf_set\n");
+	debug_print("Allocating nvm_buf_set\n");
 	bufs = nvm_buf_set_alloc(dev, NBYTES_VBLK, 0);
 	if (!bufs) {
-		printf("FAILED: Allocating nvm_buf_set\n");
+		debug_print("FAILED: Allocating nvm_buf_set\n");
 		exit(-1);
 	}
 
-	printf("nvm_buf_set_fill\n");
+	debug_print("nvm_buf_set_fill\n");
 	nvm_buf_set_fill(bufs);
 
 	// Construct punit addrs
@@ -164,11 +175,11 @@ void nvm_init(){
 	size_t vblk_r_idx = 0;
 	
 	size_t nr_iterate_to_read = 0; // up to NBYTES_TO_READ / NBYTES_VBLK;
-	printf("up to nr_iterate_to_read: %zu\n", NBYTES_TO_READ / NBYTES_VBLK);
+	debug_print("up to nr_iterate_to_read: %zu\n", NBYTES_TO_READ / NBYTES_VBLK);
 
 
 	for(size_t blk_idx =0; blk_idx< NR_BLOCKS; blk_idx++){
-		//printf("blk_idx: %zu\n", blk_idx);
+		//debug_print("blk_idx: %zu\n", blk_idx);
 		for(size_t i=0; i<NR_PUNITS/NR_BLKS_IN_VBLK; i++){ // i < 128/32 // i = 0, 1, 2, 3
 			
 
@@ -191,8 +202,8 @@ void nvm_init(){
 #else
 			if(vblk_w_idx < NR_VBLKS_W){ // e.g. (128/32)/2 = 2 // i == 0, 1
 #endif
-				// vblks reserved for writes
-				//printf("vblk_w_idx: %zu is initialized\n", vblk_w_idx);
+				//vblks reserved for writes
+				//debug_print("vblk_w_idx: %zu is initialized\n", vblk_w_idx);
 				vblks_w[vblk_w_idx] = blk;
 				vblks_state_w[vblk_w_idx] = FREE;
 				vblk_w_idx++;
@@ -209,14 +220,12 @@ void nvm_init(){
 					}
 					else{
 						if (nvm_vblk_write(blk, bufs->write, NBYTES_VBLK) < 0) {
-							printf("FAILED: nvm_vblk_write\n");
+							debug_print("FAILED: nvm_vblk_write\n");
 							vblks_state_r[vblk_r_idx] = BAD;
-							//nvm_buf_set_free(bufs);
-							//exit(-1);
 							continue;
 						}
 
-						//printf("vblk_r_idx: %zu is wriiten and reserved for READ\n", vblk_r_idx);
+						//debug_print("vblk_r_idx: %zu is wriiten and reserved for READ\n", vblk_r_idx);
 						vblks_state_r[vblk_r_idx] = RESERVED;
 						nr_iterate_to_read++;	
 					}
@@ -239,36 +248,36 @@ void *t_writer(void *data)
 	size_t* size = (size_t*)data;
 	int nr_iterate = ((*size)/NBYTES_VBLK);
 	
-	printf("[WIRTE] size: %zu\n", *size);
-	printf("[WIRTE] NBYTES_VBLK: %zu\n", NBYTES_VBLK);
+	debug_print("[WIRTE] size: %zu\n", *size);
+	debug_print("[WIRTE] NBYTES_VBLK: %zu\n", NBYTES_VBLK);
 	
 	if((*size)%NBYTES_VBLK > 0){
 		nr_iterate++;
 	}
 
-	printf("[WIRTE] nr_iterate: %d\n", nr_iterate);
+	debug_print("[WIRTE] nr_iterate: %d\n", nr_iterate);
 	for(size_t i=0; i< nr_iterate; i++){
-		printf("[WIRTE] %zu th iterate\n", i);
+		//debug_print("[WIRTE] %zu th iterate\n", i);
 
-		printf("[WIRTE] get vblk for write\n");
+		//debug_print("[WIRTE] get vblk for write\n");
     vblk = get_vblk_for_write();
     
 		if(vblk == NULL){
-      printf("[WIRTE] FAILED: Allocating vblk\n");
+      debug_print("[WIRTE] FAILED: Allocating vblk\n");
       goto out;
     }
 		
-		printf("[WIRTE] nvm_vblk_write\n");
+		//debug_print("[WIRTE] nvm_vblk_write\n");
     if (nvm_vblk_write(vblk, bufs->write, NBYTES_VBLK) < 0) {
-      printf("[WIRTE] FAILED: nvm_vblk_write\n");
-      goto out;
+      debug_print("[WIRTE] FAILED: nvm_vblk_write\n");
+			goto out;
     }
 	}
 	
-  printf("[WIRTE] nvm_vblk_write: done\n");
+  debug_print("[WIRTE] nvm_vblk_write: done\n");
   return 0;
 
-	printf("[write] FAILED: out\n");
+	debug_print("[write] FAILED: out\n");
 out:
   nvm_buf_set_free(bufs);
   free_all();
@@ -283,35 +292,35 @@ void *t_reader(void *data)
 	size_t* size = (size_t*)data;
 	int nr_iterate = ((*size)/NBYTES_VBLK);
 	
-	printf("[READ] size: %zu\n", *size);
-	printf("[READ] NBYTES_VBLK: %zu\n", NBYTES_VBLK);
+	debug_print("[READ] size: %zu\n", *size);
+	debug_print("[READ] NBYTES_VBLK: %zu\n", NBYTES_VBLK);
 	
 	if((*size)%NBYTES_VBLK > 0){
 		nr_iterate++;
 	}
 	
-	printf("[READ] nr_iterate: %d\n", nr_iterate);
+	debug_print("[READ] nr_iterate: %d\n", nr_iterate);
 	for(size_t i=0; i< nr_iterate; i++){
-		printf("[READ] %zu th iterate\n", i);
+		//debug_print("[READ] %zu th iterate\n", i);
 
-    printf("[READ] Allocating vblk\n");
+    //debug_print("[READ] Allocating vblk\n");
     vblk = get_vblk_for_read();
     if(vblk == NULL){
-      printf("[READ] FAILED: Allocating vblk\n");
+      debug_print("[READ] FAILED: Allocating vblk\n");
       goto out;
     }
 		
-		printf("[READ] nvm_vblk_read\n");
+		//debug_print("[READ] nvm_vblk_read\n");
     if (nvm_vblk_read(vblk, bufs->read, NBYTES_VBLK) < 0) {
-      printf("[READ] FAILED: nvm_vblk_read\n");
+      debug_print("[READ] FAILED: nvm_vblk_read\n");
       goto out;
     }
 	}
 	
-  printf("[READ] nvm_vblk_read: done\n");
+  debug_print("[READ] nvm_vblk_read: done\n");
   return 0;
 
-	printf("[write] FAILED: out\n");
+	debug_print("[write] FAILED: out\n");
 out:
   nvm_buf_set_free(bufs);
   free_all();
@@ -335,7 +344,7 @@ void *io_manager(void *data){
 	int thr_id;
 	int status;
 	int rw = *((int*)data);
-
+	
 
 	if(rw == 0){ // writer
 		for(int i=0; i<NR_W_THREADS; i++){
@@ -396,6 +405,16 @@ int main()
 	int flag_writer=0;
 	int flag_reader=1;
 
+	if( (NBYTES_IO_W % NBYTES_VBLK) != 0 ){
+		printf("Write Size: miss aligned\n");
+		exit(0);
+	}
+	
+	if( (NBYTES_IO_R % NBYTES_VBLK) != 0 ){
+		printf("Read Size: miss aligned\n");
+		exit(0);
+	}
+	
 	nvm_init();
 
 	if(NR_W_THREADS > 0){
