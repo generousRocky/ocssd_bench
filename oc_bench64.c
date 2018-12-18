@@ -11,9 +11,9 @@
 #define IS_ISOLATED 0
 
 // same as the number of LUN in VBLK
-#define NR_BLKS_IN_VBLK 128 // must not be beyond (NR_PUNITS/2)
+#define NR_BLKS_IN_VBLK 4 // must not be beyond (NR_PUNITS/2)
 
-#define NR_W_THREADS 1
+#define NR_W_THREADS 64
 #define NR_R_THREADS 0
 
 #define NBYTES_TO_WRITE 68719476736 // 64GB

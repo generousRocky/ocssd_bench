@@ -1,4 +1,4 @@
-cscope 15 $HOME/ocssd_bench               0000162690
+cscope 15 $HOME/ocssd_bench -q 0000002120 0000162979
 	@oc_bench.c
 
 1 
@@ -45,7 +45,7 @@ cscope 15 $HOME/ocssd_bench               0000162690
 
 14 
 	#NR_BLKS_IN_VBLK
- 16
+ 128
 
 15 
 
@@ -53,79 +53,83 @@ cscope 15 $HOME/ocssd_bench               0000162690
 
 16 
 	#NR_W_THREADS
- 32
+ 0
 
 	)
 
 17 
 	#NR_R_THREADS
- 0
+ 1
 
 	)
 
-20 
+19 
 	#NBYTES_TO_WRITE
  68719476736
 
-21 
+20 
 	#NBYTES_TO_READ
  68719476736
 
-22 
+21 
 
 	)
 
-23 
+22 
 	#NVM_DEV_PATH
  "/dev/nvme0n1"
 
 	)
 
-26 
+25 
 	#NR_PUNITS
  128
 
 	)
 
-27 
+26 
 	#NR_BLOCKS
  1020
 
 	)
 
-29 
+28 
 	#NR_VBLKS_W
- (1020 * ((
+ (
+size_t
+)(1020 * ((
 NR_PUNITS
  / 
 NR_BLKS_IN_VBLK
-è/ 2))
+è/ ()2))
 
 	)
 
-30 
+29 
 	#NR_VBLKS_R
- (1020 * ((
+ (
+size_t
+)(1020 * ((
 NR_PUNITS
  / 
 NR_BLKS_IN_VBLK
-è/ 2))
+è/ ()2))
 
 	)
 
-35 
+31 
 	#DEBUG_ENABLE
  1
 
 	)
 
-36 
+32 
 	#debug_´št
 (
 fmt
 , ...) \
 
-37 dØ{ ià(
+33 dØ{ ià(
 DEBUG_ENABLE
 è
 	`årštf
@@ -137,7 +141,7 @@ fmt
 __FILE__
 , \
 
-38 
+34 
 __LINE__
 , 
 __func__
@@ -147,19 +151,19 @@ __VA_ARGS__
 
 	)
 
-42 
+37 
 	mFREE
 ,
 
-43 
+38 
 	mRESERVED
 ,
 
-44 
+39 
 	mBAD
 ,
 
-47 
+42 
 ±h»ad_mu‹x_t
  
 	gmu‹x_w
@@ -167,7 +171,7 @@ __VA_ARGS__
 PTHREAD_MUTEX_INITIALIZER
 ;
 
-48 
+43 
 ±h»ad_mu‹x_t
  
 	gmu‹x_r
@@ -175,25 +179,25 @@ PTHREAD_MUTEX_INITIALIZER
 PTHREAD_MUTEX_INITIALIZER
 ;
 
-50 
+45 
 	gnvm_dev_·th
 [] = 
 NVM_DEV_PATH
 ;
 
-51 
+46 
 nvm_dev
  *
 	gdev
 ;
 
-52 cÚ¡ 
+47 cÚ¡ 
 nvm_geo
  *
 	ggeo
 ;
 
-54 
+49 
 nvm_buf_£t
  *
 	gbufs
@@ -201,7 +205,7 @@ nvm_buf_£t
 NULL
 ;
 
-55 
+50 
 nvm_addr
  
 	gpun™s_
@@ -209,7 +213,7 @@ nvm_addr
 NR_PUNITS
 ];
 
-57 
+52 
 nvm_vblk
 * 
 	gvblks_w
@@ -217,7 +221,7 @@ nvm_vblk
 NR_VBLKS_W
 ];
 
-58 
+53 
 nvm_vblk
 * 
 	gvblks_r
@@ -225,27 +229,27 @@ nvm_vblk
 NR_VBLKS_R
 ];
 
-60 
+55 
 	gvblks_¡©e_r
 [
 NR_VBLKS_R
 ];
 
-61 
+56 
 	gvblks_¡©e_w
 [
 NR_VBLKS_W
 ];
 
-63 
+58 
 	gcurs_w
 =-1;
 
-64 
+59 
 	gcurs_r
 =-1;
 
-66 
+61 
 size_t
  
 	gNBYTES_IO_W
@@ -255,7 +259,7 @@ NR_W_THREADS
 NBYTES_TO_WRITE
 /NR_W_THREADS);
 
-67 
+62 
 size_t
  
 	gNBYTES_IO_R
@@ -265,7 +269,7 @@ NR_R_THREADS
 NBYTES_TO_WRITE
 /NR_R_THREADS);
 
-68 
+63 
 size_t
  
 	gNBYTES_VBLK
@@ -273,11 +277,11 @@ size_t
 NR_BLKS_IN_VBLK
 *1024*1024*16;
 
-71 
+66 
 	$ä“_®l
 (){
 
-72 
+67 
 size_t
  
 i
@@ -285,7 +289,7 @@ i
 NR_VBLKS_W
 ; i++){
 
-73 
+68 
 	`nvm_vblk_ä“
 (
 vblks_w
@@ -293,7 +297,15 @@ vblks_w
 i
 ]);
 
-74 
+71 
+size_t
+ 
+i
+=0; i<
+NR_VBLKS_R
+; i++){
+
+72 
 	`nvm_vblk_ä“
 (
 vblks_r
@@ -301,23 +313,23 @@ vblks_r
 i
 ]);
 
-77 
+76 
 	}
 }
 
-79 
+78 
 nvm_vblk
 * 
 	$g‘_vblk_fÜ_»ad
 (){
 
-80 
+79 
 	`±h»ad_mu‹x_lock
 (&
 mu‹x_r
 );
 
-82 
+81 
 size_t
  
 i
@@ -325,87 +337,87 @@ i
 NR_VBLKS_R
 ; i++) {
 
-83 
+82 
 curs_r
 ++;
 
-84 
+83 
 curs_r
  = (curs_¸% 
 NR_VBLKS_R
 );
 
-86 
+85 
 vblks_¡©e_r
 [
 curs_r
 ]) {
 
-87 
+86 
 RESERVED
 :
 
-88 
+87 
 	`±h»ad_mu‹x_uÆock
 (&
 mu‹x_r
 );
 
-89  
+88  
 vblks_r
 [
 curs_r
 ];
 
-91 
+90 
 FREE
 :
 
-92 
+91 
 BAD
 :
 
-93 
+92 
 	`debug_´št
 ("FREE o¸BAD - vblk: %d\n", 
 curs_r
 );
 
-97 
+96 
 	`debug_´št
 ("out of switch\n");
 
-100 
-	`´štf
+99 
+	`debug_´št
 ("No‡vailable vblk for READ\n");
 
-101 
+100 
 	`±h»ad_mu‹x_uÆock
 (&
 mu‹x_r
 );
 
-102  
+101  
 NULL
 ;
 
-103 
+102 
 	}
 }
 
-105 
+104 
 nvm_vblk
 * 
 	$g‘_vblk_fÜ_wr™e
 (){
 
-106 
+105 
 	`±h»ad_mu‹x_lock
 (&
 mu‹x_w
 );
 
-108 
+107 
 size_t
  
 i
@@ -413,27 +425,27 @@ i
 NR_VBLKS_W
 ; i++) {
 
-111 
+110 
 curs_w
 ++;
 
-112 
+111 
 curs_w
- = curs_w % 
+ = curs_w % ()
 NR_VBLKS_W
 ;
 
-114 
+113 
 vblks_¡©e_w
 [
 curs_w
 ]) {
 
-115 
+114 
 FREE
 :
 
-116 ifÐ
+115 ifÐ
 	`nvm_vblk_”a£
 (
 vblks_w
@@ -441,7 +453,7 @@ vblks_w
 curs_w
 ]) < 0) {
 
-117 
+116 
 vblks_¡©e_w
 [
 curs_w
@@ -449,13 +461,13 @@ curs_w
 BAD
 ;
 
-119 
-	`´štf
+118 
+	`debug_´št
 ("WARNING: fažØ”a£ vblk: %d\n", 
 curs_w
 );
 
-123 
+122 
 vblks_¡©e_w
 [
 curs_w
@@ -463,55 +475,55 @@ curs_w
 RESERVED
 ;
 
-124 
+123 
 	`±h»ad_mu‹x_uÆock
 (&
 mu‹x_w
 );
 
-126  
+125  
 vblks_w
 [
 curs_w
 ];
 
-128 
+127 
 RESERVED
 :
 
-129 
+128 
 BAD
 :
 
-134 
-	`´štf
+133 
+	`debug_´št
 ("No‡vailable vblk\n");
 
-135 
+134 
 	`±h»ad_mu‹x_uÆock
 (&
 mu‹x_w
 );
 
-136  
+135  
 NULL
 ;
 
-137 
+136 
 	}
 }
 
-139 
+138 
 	$nvm_š™
 (){
 
-141 
+140 
 size_t
  
 nby‹s
 =0;
 
-144 
+143 
 dev
  = 
 	`nvm_dev_Ý’
@@ -519,19 +531,19 @@ dev
 nvm_dev_·th
 );
 
-145 ià(!
+144 ià(!
 dev
 ) {
 
-146 
+145 
 	`³¼Ü
 ("nvm_dev_open");
 
-147  
+146  
 	`ex™
 (-1);
 
-150 
+149 
 geo
  = 
 	`nvm_dev_g‘_geo
@@ -539,11 +551,11 @@ geo
 dev
 );
 
-152 
-	`´štf
+151 
+	`debug_´št
 ("Allocating‚vm_buf_set\n");
 
-153 
+152 
 bufs
  = 
 	`nvm_buf_£t_®loc
@@ -553,47 +565,47 @@ dev
 NBYTES_VBLK
 , 0);
 
-154 ià(!
+153 ià(!
 bufs
 ) {
 
-155 
-	`´štf
+154 
+	`debug_´št
 ("FAILED: Allocating‚vm_buf_set\n");
 
-156 
+155 
 	`ex™
 (-1);
 
-159 
-	`´štf
+158 
+	`debug_´št
 ("nvm_buf_set_fill\n");
 
-160 
+159 
 	`nvm_buf_£t_fžl
 (
 bufs
 );
 
-163 
+162 
 size_t
  
 i
  = 0; i < 128; ++i){
 
-164 
+163 
 nvm_addr
  
 addr
 ;
 
-166 
+165 
 addr
 .
 µa
  = 0;
 
-167 
+166 
 addr
 .
 g
@@ -607,7 +619,7 @@ geo
 nchªÃls
 ;
 
-168 
+167 
 addr
 .
 g
@@ -623,7 +635,7 @@ nchªÃls
 Æuns
 ;
 
-170 
+169 
 pun™s_
 [
 i
@@ -631,33 +643,33 @@ i
 addr
 ;
 
-174 
+173 
 size_t
  
 vblk_w_idx
  = 0;
 
-175 
+174 
 size_t
  
 vblk_r_idx
  = 0;
 
-177 
+176 
 size_t
  
 Ä_™”©e_to_»ad
  = 0;
 
-178 
-	`´štf
+177 
+	`debug_´št
 ("u°tØÄ_™”©e_to_»ad: %zu\n", 
 NBYTES_TO_READ
  / 
 NBYTES_VBLK
 );
 
-181 
+180 
 size_t
  
 blk_idx
@@ -665,7 +677,7 @@ blk_idx
 NR_BLOCKS
 ; blk_idx++){
 
-183 
+182 
 size_t
  
 i
@@ -675,13 +687,13 @@ NR_PUNITS
 NR_BLKS_IN_VBLK
 ; i++){
 
-186 
+185 
 nvm_vblk
  *
 blk
 ;
 
-187 
+186 
 nvm_addr
  
 addrs
@@ -689,7 +701,7 @@ addrs
 NR_BLKS_IN_VBLK
 ];
 
-189 
+188 
 size_t
  
 j
@@ -697,7 +709,7 @@ j
 NR_BLKS_IN_VBLK
 ; j++){
 
-190 
+189 
 addrs
 [
 j
@@ -709,7 +721,7 @@ NR_BLKS_IN_VBLK
 i
 +j];
 
-191 
+190 
 addrs
 [
 j
@@ -721,7 +733,7 @@ blk
 blk_idx
 ;
 
-194 
+193 
 blk
  = 
 	`nvm_vblk_®loc
@@ -733,23 +745,23 @@ addrs
 NR_BLKS_IN_VBLK
 );
 
-195 ià(!
+194 ià(!
 blk
 ) {
 
-196 
+195 
 	`³¼Ü
 ("FAILED:‚vm_vblk_alloc_line");
 
-197 
+196 
 	`ex™
 (-1);
 
-200 #ià
+199 #ià
 IS_ISOLATED
 
 
-201 if(
+200 if(
 i
  < (
 NR_PUNITS
@@ -757,13 +769,13 @@ NR_PUNITS
 NR_BLKS_IN_VBLK
 )/2){
 
-203 if(
+202 if(
 vblk_w_idx
  < 
 NR_VBLKS_W
 ){
 
-207 
+206 
 vblks_w
 [
 vblk_w_idx
@@ -771,7 +783,7 @@ vblk_w_idx
 blk
 ;
 
-208 
+207 
 vblks_¡©e_w
 [
 vblk_w_idx
@@ -779,15 +791,15 @@ vblk_w_idx
 FREE
 ;
 
-209 
+208 
 vblk_w_idx
 ++;
 
-212 if(
+211 if(
 NR_R_THREADS
  == 0 ){
 
-217 if(
+216 if(
 Ä_™”©e_to_»ad
  < (
 NBYTES_TO_READ
@@ -795,13 +807,13 @@ NBYTES_TO_READ
 NBYTES_VBLK
 ) ){
 
-218 ià(
+217 ià(
 	`nvm_vblk_”a£
 (
 blk
 ) < 0) {
 
-219 
+218 
 vblks_¡©e_r
 [
 vblk_r_idx
@@ -809,7 +821,7 @@ vblk_r_idx
 BAD
 ;
 
-222 ià(
+221 ià(
 	`nvm_vblk_wr™e
 (
 blk
@@ -821,11 +833,11 @@ wr™e
 NBYTES_VBLK
 ) < 0) {
 
-223 
-	`´štf
+222 
+	`debug_´št
 ("FAILED:‚vm_vblk_write\n");
 
-224 
+223 
 vblks_¡©e_r
 [
 vblk_r_idx
@@ -833,7 +845,7 @@ vblk_r_idx
 BAD
 ;
 
-229 
+228 
 vblks_¡©e_r
 [
 vblk_r_idx
@@ -841,11 +853,11 @@ vblk_r_idx
 RESERVED
 ;
 
-230 
+229 
 Ä_™”©e_to_»ad
 ++;
 
-234 
+233 
 vblks_¡©e_r
 [
 vblk_r_idx
@@ -853,7 +865,7 @@ vblk_r_idx
 FREE
 ;
 
-237 
+236 
 vblks_r
 [
 vblk_r_idx
@@ -861,27 +873,27 @@ vblk_r_idx
 blk
 ;
 
-238 
+237 
 vblk_r_idx
 ++;
 
-242 
+241 
 	}
 }
 
-244 *
+243 *
 	$t_wr™”
 (*
 d©a
 )
 
-246 
+245 
 nvm_vblk
 * 
 vblk
 ;
 
-248 
+247 
 size_t
 * 
 size
@@ -889,7 +901,7 @@ size
 d©a
 ;
 
-249 
+248 
 Ä_™”©e
  = ((*
 size
@@ -897,35 +909,35 @@ size
 NBYTES_VBLK
 );
 
-251 
-	`´štf
+250 
+	`debug_´št
 ("[WIRTE] size: %zu\n", *
 size
 );
 
-252 
-	`´štf
+251 
+	`debug_´št
 ("[WIRTE] NBYTES_VBLK: %zu\n", 
 NBYTES_VBLK
 );
 
-254 if((*
+253 if((*
 size
 )%
 NBYTES_VBLK
  > 0){
 
-255 
+254 
 Ä_™”©e
 ++;
 
-258 
-	`´štf
+257 
+	`debug_´št
 ("[WIRTE]‚r_™”©e: %d\n", 
 Ä_™”©e
 );
 
-259 
+258 
 size_t
  
 i
@@ -933,27 +945,27 @@ i
 Ä_™”©e
 ; i++){
 
-263 
+262 
 vblk
  = 
 	`g‘_vblk_fÜ_wr™e
 ();
 
-265 if(
+264 if(
 vblk
  =ð
 NULL
 ){
 
-266 
-	`´štf
+265 
+	`debug_´št
 ("[WIRTE] FAILED: Allocating vblk\n");
 
-267 
+266 
 out
 ;
 
-271 ià(
+270 ià(
 	`nvm_vblk_wr™e
 (
 vblk
@@ -965,57 +977,57 @@ wr™e
 NBYTES_VBLK
 ) < 0) {
 
-272 
-	`´štf
+271 
+	`debug_´št
 ("[WIRTE] FAILED:‚vm_vblk_write\n");
 
-273 
+272 
 out
 ;
 
-277 
-	`´štf
+276 
+	`debug_´št
 ("[WIRTE]‚vm_vblk_write: done\n");
 
-280 
-	`´štf
+279 
+	`debug_´št
 ("[write] FAILED: out\n");
 
-281 
+280 
 out
 :
 
-282 
+281 
 	`nvm_buf_£t_ä“
 (
 bufs
 );
 
-283 
+282 
 	`ä“_®l
 ();
 
-284 
+283 
 	`ex™
 (-1);
 
-285 
+284 
 	}
 }
 
-288 *
+287 *
 	$t_»ad”
 (*
 d©a
 )
 
-290 
+289 
 nvm_vblk
 * 
 vblk
 ;
 
-292 
+291 
 size_t
 * 
 size
@@ -1023,7 +1035,7 @@ size
 d©a
 ;
 
-293 
+292 
 Ä_™”©e
  = ((*
 size
@@ -1031,35 +1043,35 @@ size
 NBYTES_VBLK
 );
 
-295 
-	`´štf
+294 
+	`debug_´št
 ("[READ] size: %zu\n", *
 size
 );
 
-296 
-	`´štf
+295 
+	`debug_´št
 ("[READ] NBYTES_VBLK: %zu\n", 
 NBYTES_VBLK
 );
 
-298 if((*
+297 if((*
 size
 )%
 NBYTES_VBLK
  > 0){
 
-299 
+298 
 Ä_™”©e
 ++;
 
-302 
-	`´štf
+301 
+	`debug_´št
 ("[READ]‚r_™”©e: %d\n", 
 Ä_™”©e
 );
 
-303 
+302 
 size_t
  
 i
@@ -1067,27 +1079,27 @@ i
 Ä_™”©e
 ; i++){
 
-307 
+306 
 vblk
  = 
 	`g‘_vblk_fÜ_»ad
 ();
 
-308 if(
+307 if(
 vblk
  =ð
 NULL
 ){
 
-309 
-	`´štf
+308 
+	`debug_´št
 ("[READ] FAILED: Allocating vblk\n");
 
-310 
+309 
 out
 ;
 
-314 ià(
+313 ià(
 	`nvm_vblk_»ad
 (
 vblk
@@ -1099,57 +1111,57 @@ bufs
 NBYTES_VBLK
 ) < 0) {
 
-315 
-	`´štf
+314 
+	`debug_´št
 ("[READ] FAILED:‚vm_vblk_read\n");
 
-316 
+315 
 out
 ;
 
-320 
-	`´štf
+319 
+	`debug_´št
 ("[READ]‚vm_vblk_read: done\n");
 
-323 
-	`´štf
+322 
+	`debug_´št
 ("[write] FAILED: out\n");
 
-324 
+323 
 out
 :
 
-325 
+324 
 	`nvm_buf_£t_ä“
 (
 bufs
 );
 
-326 
+325 
 	`ä“_®l
 ();
 
-327 
+326 
 	`ex™
 (-1);
 
-329 
+328 
 	}
 }
 
-331 *
+330 *
 	$io_mªag”
 (*
 d©a
 ){
 
-333 
+332 
 time¥ec
  
 loÿl_time
 [2];
 
-334 
+333 
 	`þock_g‘time
 (
 CLOCK_MONOTONIC
@@ -1157,11 +1169,11 @@ CLOCK_MONOTONIC
 loÿl_time
 [0]);
 
-335 
+334 
 d–ay_time
 ;
 
-338 
+337 
 ±h»ad_t
  
 w_th»ad
@@ -1169,7 +1181,7 @@ w_th»ad
 NR_W_THREADS
 ];
 
-339 
+338 
 ±h»ad_t
  
 r_th»ad
@@ -1177,7 +1189,7 @@ r_th»ad
 NR_R_THREADS
 ];
 
-341 
+340 
 size_t
  
 ¬gs_w_size
@@ -1185,7 +1197,7 @@ size_t
 NR_W_THREADS
 ];
 
-342 
+341 
 size_t
  
 ¬gs_r_size
@@ -1193,31 +1205,31 @@ size_t
 NR_R_THREADS
 ];
 
-344 
+343 
 thr_id
 ;
 
-345 
+344 
 ¡©us
 ;
 
-346 
+345 
 rw
  = *((*)
 d©a
 );
 
-349 if(
+348 if(
 rw
  == 0){
 
-350 
+349 
 i
 =0; i<
 NR_W_THREADS
 ; i++){
 
-351 
+350 
 ¬gs_w_size
 [
 i
@@ -1225,7 +1237,7 @@ i
 NBYTES_IO_W
 ;
 
-352 
+351 
 thr_id
  = 
 	`±h»ad_ü—‹
@@ -1241,29 +1253,29 @@ t_wr™”
 ¬gs_w_size
 [i]);
 
-353 ià(
+352 ià(
 thr_id
  < 0){
 
-354 
+353 
 	`³¼Ü
 ("thread createƒrror : ");
 
-355 
+354 
 	`ex™
 (0);
 
-360 if(
+359 if(
 rw
  == 1){
 
-361 
+360 
 i
 =0; i<
 NR_R_THREADS
 ; i++){
 
-362 
+361 
 ¬gs_r_size
 [
 i
@@ -1271,7 +1283,7 @@ i
 NBYTES_IO_R
 ;
 
-363 
+362 
 thr_id
  = 
 	`±h»ad_ü—‹
@@ -1287,29 +1299,29 @@ t_»ad”
 ¬gs_r_size
 [i]);
 
-364 ià(
+363 ià(
 thr_id
  < 0){
 
-365 
+364 
 	`³¼Ü
 ("thread createƒrror : ");
 
-366 
+365 
 	`ex™
 (0);
 
-371 if(
+370 if(
 rw
  == 0){
 
-372 
+371 
 i
 =0; i<
 NR_W_THREADS
 ; i++){
 
-373 
+372 
 	`±h»ad_još
 (
 w_th»ad
@@ -1319,17 +1331,17 @@ i
 ¡©us
 );
 
-377 if(
+376 if(
 rw
  == 1){
 
-378 
+377 
 i
 =0; i<
 NR_R_THREADS
 ; i++){
 
-379 
+378 
 	`±h»ad_još
 (
 r_th»ad
@@ -1339,7 +1351,7 @@ i
 ¡©us
 );
 
-384 
+383 
 	`þock_g‘time
 (
 CLOCK_MONOTONIC
@@ -1347,7 +1359,7 @@ CLOCK_MONOTONIC
 loÿl_time
 [1]);
 
-385 
+384 
 	`ÿlþock
 (
 loÿl_time
@@ -1359,11 +1371,11 @@ tÙ®_couÁ
 d–ay_time
  );
 
-387 if(
+386 if(
 rw
  == 0){
 
-388 
+387 
 	`´štf
 ("[WRITE],ƒÏp£dime: %Îu,Ù®_time: %Îu,Ù®_couÁ: %Îu\n", 
 d–ay_time
@@ -1373,7 +1385,7 @@ tÙ®_time
 tÙ®_couÁ
 );
 
-389 
+388 
 	`´štf
 ("[WRITE] MiB/s: %LF\n", (()
 NBYTES_TO_WRITE
@@ -1381,7 +1393,7 @@ NBYTES_TO_WRITE
 tÙ®_time
 /(()1000000000)));
 
-392 
+391 
 	`´štf
 ("[READ],ƒÏp£dime: %Îu,Ù®_time: %Îu,Ù®_couÁ: %Îu\n", 
 d–ay_time
@@ -1391,7 +1403,7 @@ tÙ®_time
 tÙ®_couÁ
 );
 
-393 
+392 
 	`´štf
 ("[READ] MiB/s: %LF\n", (()
 NBYTES_TO_READ
@@ -1399,59 +1411,73 @@ NBYTES_TO_READ
 tÙ®_time
 /(()1000000000)));
 
-395 
+394 
 	}
 }
 
-398 
+397 
 	$maš
 ()
 
-400 
+399 
 ±h»ad_t
  
 m_th»ad
 [2];
 
-402 
+401 
 thr_id
 ;
 
-403 
+402 
 ¡©us
 ;
 
-405 
+404 
 æag_wr™”
 =0;
 
-406 
+405 
 æag_»ad”
 =1;
 
-408 ifÐ(
+407 ifÐ(
 NBYTES_IO_W
  % 
 NBYTES_VBLK
 ) != 0 ){
 
-409 
+408 
 	`´štf
 ("Write Size: miss‡ligned\n");
 
-410 
+409 
 	`ex™
 (0);
 
+412 ifÐ(
+NBYTES_IO_R
+ % 
+NBYTES_VBLK
+) != 0 ){
+
 413 
+	`´štf
+("Read Size: miss‡ligned\n");
+
+414 
+	`ex™
+(0);
+
+417 
 	`nvm_š™
 ();
 
-415 if(
+419 if(
 NR_W_THREADS
  > 0){
 
-416 
+420 
 thr_id
  = 
 	`±h»ad_ü—‹
@@ -1465,23 +1491,23 @@ io_mªag”
 æag_wr™”
 );
 
-417 ià(
+421 ià(
 thr_id
  < 0){
 
-418 
+422 
 	`³¼Ü
 ("thread createƒrror : ");
 
-419 
+423 
 	`ex™
 (0);
 
-423 if(
+427 if(
 NR_R_THREADS
  > 0){
 
-424 
+428 
 thr_id
  = 
 	`±h»ad_ü—‹
@@ -1495,23 +1521,23 @@ io_mªag”
 æag_»ad”
 );
 
-425 ià(
+429 ià(
 thr_id
  < 0){
 
-426 
+430 
 	`³¼Ü
 ("thread createƒrror : ");
 
-427 
+431 
 	`ex™
 (0);
 
-431 if(
+435 if(
 NR_W_THREADS
  > 0){
 
-432 
+436 
 	`±h»ad_još
 (
 m_th»ad
@@ -1519,11 +1545,11 @@ m_th»ad
 ¡©us
 );
 
-435 if(
+439 if(
 NR_R_THREADS
  > 0){
 
-436 
+440 
 	`±h»ad_još
 (
 m_th»ad
@@ -1531,23 +1557,23 @@ m_th»ad
 ¡©us
 );
 
-440 
+444 
 	`ä“_®l
 ();
 
-441 
+445 
 	`nvm_buf_£t_ä“
 (
 bufs
 );
 
-444 
+448 
 	`nvm_dev_þo£
 (
 dev
 );
 
-447 
+451 
 	}
 }
 
